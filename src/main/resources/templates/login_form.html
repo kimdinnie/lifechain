@@ -1,4 +1,5 @@
-<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{layout}">
 <div layout:fragment="content" class="layout-page">
 <style>
 	.custom-login {
@@ -26,7 +27,7 @@
               <h4 class="mb-2">생명사슬에 어서오세요 👋</h4>
               <p class="mb-4">계정에 로그인하고 생명에 기여해보세요!</p>
 
-			  <form th:action="@{/member/login}" method="post" id="formAuthentication" class="mb-3">
+			  <form th:action="@{/login}" method="post" id="formAuthentication" class="mb-3">
                 <div th:if="${param.error}">
 		            <div class="alert alert-danger">
 		                사용자 이메일 또는 비밀번호를 확인해 주세요.
@@ -84,7 +85,7 @@
 
               <p class="text-center">
                 <span>아직 회원이 아니십니까?</span>
-                <a th:href="@{/member/register}">
+                <a th:href="@{/register}">
                   <span>회원가입</span>
                 </a>
               </p>

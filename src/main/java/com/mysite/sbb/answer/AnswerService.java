@@ -1,8 +1,8 @@
 package com.mysite.sbb.answer;
 
 import com.mysite.sbb.question.Question;
-import com.mysite.sbb.member.member;
-import com.mysite.sbb.DataNotFoundException;
+import com.mysite.sbb.member.Member;
+import com.mysite.sbb.common.DataNotFoundException;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -23,7 +23,7 @@ public class AnswerService {
 	
 	private final AnswerRepository answerRepository;
 	
-	public Answer create(Question question, String content, member author) {
+	public Answer create(Question question, String content, Member author) {
 		Answer answer = new Answer();
 		answer.setContent(content);
 		answer.setCreateDate(LocalDateTime.now());
@@ -53,7 +53,7 @@ public class AnswerService {
     	this.answerRepository.delete(answer);
     }
     
-	public void vote(Answer answer, member member) {
+	public void vote(Answer answer, Member member) {
 		answer.getVoter().add(member);
 		this.answerRepository.save(answer);
 	}

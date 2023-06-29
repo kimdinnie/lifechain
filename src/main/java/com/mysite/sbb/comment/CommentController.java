@@ -3,7 +3,7 @@ package com.mysite.sbb.comment;
 import java.security.Principal;
 import java.util.Optional;
 
-import jakarta.validation.Valid;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,7 +19,7 @@ import org.springframework.web.server.ResponseStatusException;
 import com.mysite.sbb.answer.Answer;
 import com.mysite.sbb.answer.AnswerService;
 import com.mysite.sbb.member.MemberService;
-import com.mysite.sbb.member.member;
+import com.mysite.sbb.member.Member;
 import com.mysite.sbb.question.Question;
 import com.mysite.sbb.question.QuestionService;
 
@@ -50,7 +50,7 @@ public class CommentController {
     public String createQuestionComment(@PathVariable("id") Integer id, @Valid CommentForm commentForm,
         BindingResult bindingResult, Principal principal) {
         Optional<Question> question = Optional.of(this.questionService.getQuestion(id));
-        Optional<member> user = Optional.of(this.memberService.getMember(principal.getName()));
+        Optional<Member> user = Optional.of(this.memberService.getMember(principal.getName()));
         if (question.isPresent() && user.isPresent()) {
             if (bindingResult.hasErrors()) {
                 return "/comment/comment_form";
@@ -124,7 +124,7 @@ public class CommentController {
     public String createAnswerComment(@PathVariable("id") Integer id, @Valid CommentForm commentForm,
         BindingResult bindingResult, Principal principal) {
         Optional<Answer> answer = Optional.of(this.answerService.getAnswer(id));
-        Optional<member> user = Optional.of(this.memberService.getMember(principal.getName()));
+        Optional<Member> user = Optional.of(this.memberService.getMember(principal.getName()));
         if (answer.isPresent() && user.isPresent()) {
             if (bindingResult.hasErrors()) {
                 return "/comment/comment_form";

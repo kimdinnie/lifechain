@@ -2,7 +2,7 @@ package com.mysite.sbb.answer;
 
 import com.mysite.sbb.question.Question;
 import com.mysite.sbb.question.QuestionService;
-import com.mysite.sbb.member.member;
+import com.mysite.sbb.member.Member;
 import com.mysite.sbb.member.MemberService;
 
 import org.springframework.http.HttpStatus;
@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.validation.BindingResult;
 
-import jakarta.validation.Valid;
+import javax.validation.Valid;
 
 import java.security.Principal;
 
@@ -35,7 +35,7 @@ public class AnswerController {
 	@PostMapping("/create/{id}")
 	public String createAnswer(Model model, @PathVariable("id") Integer id, @Valid AnswerForm answerForm, BindingResult bindingResult, Principal principal) {
 		Question question = this.questionService.getQuestion(id);
-		member member = this.memberService.getMember(principal.getName());
+		Member member = this.memberService.getMember(principal.getName());
 		if (bindingResult.hasErrors()) {
 			model.addAttribute("question" ,question);
 			return "/question/question_detail";
@@ -85,7 +85,7 @@ public class AnswerController {
 	@GetMapping("/vote/{id}")
 	public String answerVote(Principal principal, @PathVariable("id") Integer id) {
 			Answer answer = this.answerService.getAnswer(id);
-			member member = this.memberService.getMember(principal.getName());
+			Member member = this.memberService.getMember(principal.getName());
 			this.answerService.vote(answer, member);
 			return String.format("redirect:/question/detail/%s#answer_%s", answer.getQuestion().getId(), answer.getId());
 	}

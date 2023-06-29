@@ -6,16 +6,16 @@ import java.util.Set;
 
 import com.mysite.sbb.question.Question;
 import com.mysite.sbb.comment.Comment;
-import com.mysite.sbb.member.member;
+import com.mysite.sbb.member.Member;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.ManyToMany;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -44,12 +44,12 @@ public class Answer {
 	private List<Comment> commentList;
 	
 	@ManyToOne
-	private member author;
+	private Member author;
 	
 	private LocalDateTime modifyDate;
 
 	@ManyToMany
-	Set<member> voter;
+	Set<Member> voter;
 	// 추천 중복을 피하기 위해 Set
 	
 }

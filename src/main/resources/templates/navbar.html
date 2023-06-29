@@ -12,11 +12,11 @@
                     <a class="nav-link" th:href="@{/question/list}">문의게시판</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" sec:authorize="isAnonymous()" th:href="@{/member/login}">로그인</a>
-                    <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/member/logout}">로그아웃</a>
+                    <a class="nav-link" sec:authorize="isAnonymous()" th:href="@{/login}">로그인</a>
+                    <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/logout}">로그아웃</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" sec:authorize="isAnonymous()" th:href="@{/member/register}">회원가입</a>
+                    <a class="nav-link" sec:authorize="isAnonymous()" th:href="@{/register}">회원가입</a>
                     <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/member/setting}">마이페이지</a>
                 </li>
             </ul>

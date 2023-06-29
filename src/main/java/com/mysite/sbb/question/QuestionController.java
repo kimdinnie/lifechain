@@ -4,7 +4,7 @@ import com.mysite.sbb.answer.Answer;
 import com.mysite.sbb.answer.AnswerForm;
 import com.mysite.sbb.answer.AnswerService;
 import com.mysite.sbb.comment.CommentForm;
-import com.mysite.sbb.member.member;
+import com.mysite.sbb.member.Member;
 import com.mysite.sbb.member.MemberService;
 
 import java.security.Principal;
@@ -22,7 +22,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
 
-import jakarta.validation.Valid;
+import javax.validation.Valid;
 
 
 import lombok.RequiredArgsConstructor;
@@ -68,7 +68,7 @@ public class QuestionController {
         if (bindingResult.hasErrors()) {
             return "/question/question_form";
         }
-        member member = this.memberService.getMember(principal.getName());
+        Member member = this.memberService.getMember(principal.getName());
         this.questionService.create(questionForm.getSubject(), questionForm.getContent(), member);
         return "redirect:/question/list";
     }
@@ -114,7 +114,7 @@ public class QuestionController {
 	@GetMapping("/vote/{id}")
 	public String questionVote(Principal principal, @PathVariable("id") Integer id) {
 			Question question = this.questionService.getQuestion(id);
-			member member = this.memberService.getMember(principal.getName());
+			Member member = this.memberService.getMember(principal.getName());
 			this.questionService.vote(question, member);
 			return String.format("redirect:/question/detail/%s", id);
 	}

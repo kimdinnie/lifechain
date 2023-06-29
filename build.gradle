@@ -1,12 +1,15 @@
 plugins {
 	id 'java'
-	id 'org.springframework.boot' version '3.1.0'
-	id 'io.spring.dependency-management' version '1.1.0'
+	id 'org.springframework.boot' version '2.7.12'
+	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
 }
 
 group = 'com.mysite'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '17'
+
+java {
+	sourceCompatibility = '11'
+}
 
 repositories {
 	mavenCentral()
@@ -24,7 +27,7 @@ dependencies {
     implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	implementation 'org.springframework.boot:spring-boot-starter-security'
-    implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6:3.1.1.RELEASE'
+    implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5:3.0.4.RELEASE'
 	implementation 'org.commonmark:commonmark:0.21.0'
 	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
     implementation 'mysql:mysql-connector-java:8.0.27'

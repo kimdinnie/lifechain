@@ -22,13 +22,13 @@ public class MemberSecurityService implements UserDetailsService{
 	
 	@Override
 	public UserDetails loadUserByUsername(String memberId) throws UsernameNotFoundException{
-		Optional<member> _member = this.memberRepository.findBymemberId(memberId);
+		Optional<Member> _member = this.memberRepository.findBymemberId(memberId);
 		if(_member.isEmpty()) {
 			throw new UsernameNotFoundException("사용자를 찾을 수 없습니다.");
 		}
-		member member = _member.get();
+		Member member = _member.get();
 		List<GrantedAuthority> authorities = new ArrayList<>();
-		if("admin".equals(memberId)) {
+		if("admin@example.com".equals(memberId)) {
 			authorities.add(new SimpleGrantedAuthority(MemberRole.ADMIN.getValue()));
 		}else {
 			authorities.add(new SimpleGrantedAuthority(MemberRole.MEMBER.getValue()));
