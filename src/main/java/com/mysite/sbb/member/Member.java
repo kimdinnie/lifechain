@@ -1,7 +1,6 @@
 package com.mysite.sbb.member;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import com.mysite.sbb.answer.Answer;
