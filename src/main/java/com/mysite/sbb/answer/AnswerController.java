@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.validation.BindingResult;
 
-import jakarta.validation.Valid;
+import javax.validation.Valid;
 
 import java.security.Principal;
 

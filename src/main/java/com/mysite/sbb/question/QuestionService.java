@@ -8,31 +8,20 @@ import java.time.LocalDateTime;
 import com.mysite.sbb.DataNotFoundException;
 import com.mysite.sbb.member.member;
 
-
 import com.mysite.sbb.answer.Answer;
-import com.mysite.sbb.answer.AnswerForm;
-import com.mysite.sbb.answer.AnswerRepository;
 
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
-import jakarta.persistence.criteria.CriteriaBuilder;
-import jakarta.persistence.criteria.CriteriaQuery;
-import jakarta.persistence.criteria.Join;
-import jakarta.persistence.criteria.JoinType;
-import jakarta.persistence.criteria.Predicate;
-import jakarta.persistence.criteria.Root;
-import jakarta.servlet.http.Cookie;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.transaction.Transactional;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Join;
+import javax.persistence.criteria.JoinType;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 
 import org.springframework.data.jpa.domain.Specification;
 
@@ -43,7 +32,6 @@ import lombok.RequiredArgsConstructor;
 public class QuestionService {
 	
 	private final QuestionRepository questionRepository;
-	private final AnswerRepository answerRepository;
 	
     private Specification<Question> search(String kw) {
         return new Specification<>() {
@@ -112,6 +100,15 @@ public class QuestionService {
 		question.getVoter().add(member);
 		this.questionRepository.save(question);
 	}
+	
+    public boolean hasVoted(Question question, member member) {
+        return question.getVoter().contains(member);
+    }
+    
+    public void cancelVote(Question question, member member) {
+        question.getVoter().remove(member);
+    }
+
 	
 
 

@@ -22,7 +22,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
 
-import jakarta.validation.Valid;
+import javax.validation.Valid;
 
 
 import lombok.RequiredArgsConstructor;
@@ -113,11 +113,18 @@ public class QuestionController {
 	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/vote/{id}")
 	public String questionVote(Principal principal, @PathVariable("id") Integer id) {
-			Question question = this.questionService.getQuestion(id);
-			member member = this.memberService.getMember(principal.getName());
-			this.questionService.vote(question, member);
-			return String.format("redirect:/question/detail/%s", id);
+	    Question question = this.questionService.getQuestion(id);
+	    member member = this.memberService.getMember(principal.getName());
+
+	    if (this.questionService.hasVoted(question, member)) {
+	        this.questionService.cancelVote(question, member);
+	    } else {
+	        this.questionService.vote(question, member);
+	    }
+
+	    return String.format("redirect:/question/detail/%s", id);
 	}
+
 	
 
 	

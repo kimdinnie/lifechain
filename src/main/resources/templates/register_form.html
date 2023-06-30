@@ -36,8 +36,12 @@
                     placeholder="이메일을 적어주세요."
                     autofocus
                   />
-
                 </div>
+                <div class="mb-3">
+				  <label for="id" class="form-label">인증번호</label>
+				  <input type="text" class="form-control" placeholder="인증번호" autofocus disabled="disabled" maxlength="7" onkeyup="checkAuthNumFn()" />
+				</div>
+				<button class="btn btn-primary d-grid w-100">메일 인증</button>
                 <div class="mb-3">
                   <label for="id" class="form-label">닉네임</label>
                   <input
