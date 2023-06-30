@@ -1,4 +1,4 @@
-package com.mysite.sbb.member;
+package com.mysite.sbb.member.controller;
 
 import java.util.List;
 
@@ -15,6 +15,7 @@ import com.mysite.sbb.member.dto.Comment;
 import com.mysite.sbb.member.dto.Member;
 import com.mysite.sbb.member.dto.Question;
 import com.mysite.sbb.member.form.MemberRegisterForm;
+import com.mysite.sbb.member.service.MemberService;
 
 import org.springframework.ui.Model;
 

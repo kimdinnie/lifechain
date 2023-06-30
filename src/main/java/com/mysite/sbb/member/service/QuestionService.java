@@ -1,4 +1,4 @@
-package com.mysite.sbb.question;
+package com.mysite.sbb.member.service;
 
 import java.util.ArrayList;
 import java.util.List;

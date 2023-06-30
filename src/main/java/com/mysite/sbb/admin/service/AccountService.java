@@ -2,9 +2,9 @@ package com.mysite.sbb.admin.service;
 
 import com.mysite.sbb.admin.repository.AccountRepository;
 import com.mysite.sbb.common.DataNotFoundException;
-import com.mysite.sbb.member.MemberRepository;
 import com.mysite.sbb.member.dto.Member;
 import com.mysite.sbb.member.dto.MemberDto;
+import com.mysite.sbb.member.repository.MemberRepository;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;

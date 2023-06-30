@@ -8,7 +8,7 @@ public class ChartController {
 	
 	@GetMapping(value = "chart")
 	public String chart() {
-		return "/chart";
+		return "/chart/chart";
 	}
 
 }

@@ -15,7 +15,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.header.writers.frameoptions.XFrameOptionsHeaderWriter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-import com.mysite.sbb.member.MemberSecurityService;
+import com.mysite.sbb.member.service.MemberSecurityService;
 
 @RequiredArgsConstructor
 @Configuration

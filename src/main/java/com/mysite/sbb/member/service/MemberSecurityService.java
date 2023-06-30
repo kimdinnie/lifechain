@@ -1,4 +1,4 @@
-package com.mysite.sbb.member;
+package com.mysite.sbb.member.service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +12,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import com.mysite.sbb.config.MemberRole;
 import com.mysite.sbb.member.dto.Member;
+import com.mysite.sbb.member.repository.MemberRepository;
 
 import lombok.RequiredArgsConstructor;
 

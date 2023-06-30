@@ -1,10 +1,10 @@
 package com.mysite.sbb;
 
 import com.mysite.sbb.common.DataNotFoundException;
-import com.mysite.sbb.member.MemberService;
 import com.mysite.sbb.member.form.MemberRegisterForm;
 import com.mysite.sbb.member.mail.EmailException;
 import com.mysite.sbb.member.mail.TempPasswordForm;
+import com.mysite.sbb.member.service.MemberService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -32,49 +32,49 @@ public class MainController {
 
     @GetMapping("/login")
     public String login() {
-        return "login_form";
+        return "/login/login_form";
     }
     // PostMapping은 스프링 시큐리티가 대신 처리.
 
     @GetMapping("/register")
     public String register(MemberRegisterForm memberRegisterForm) {
-        return "register_form";
+        return "/login/register_form";
     }
 
     @PostMapping("/register")
     public String register(@Valid MemberRegisterForm memberRegisterForm, BindingResult bindingResult) {
         if(bindingResult.hasErrors()) {
-            return "register_form";
+            return "/login/register_form";
         }
         if(!memberRegisterForm.getMemberPw1().equals(memberRegisterForm.getMemberPw2())) {
             bindingResult.rejectValue("memberPw2", "passwordInCorrect", "패스워드가 일치하지 않습니다.");
-            return "register_form";
+            return "/login/register_form";
         }
         try {
             memberService.create(memberRegisterForm.getMemberId(), memberRegisterForm.getMemberPw1(), memberRegisterForm.getMemberNick());
         }catch (DataIntegrityViolationException e) {
             e.printStackTrace();
             bindingResult.reject("signupFailed", "이미 등록된 회원입니다.");
-            return "register_form";
+            return "/login/register_form";
         }catch(Exception e) {
             e.printStackTrace();
             bindingResult.reject("signupFailed", e.getMessage());
-            return "register_form";
+            return "/login/register_form";
         }
 
         return "redirect:/";
     }
     
 	// 이메일 인증
-	@GetMapping("/tempPassword")
+	@GetMapping("/forgotPass")
 	String forgotpass() {
-		return "forgot_pass";
+		return "/login/forgot_pass";
 	}
 	
-    @PostMapping("/tempPassword")
+    @PostMapping("/forgotPass")
     public String sendTempPassword(@Valid TempPasswordForm tempPasswordForm, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-        	return "forgot_pass";
+        	return "/login/forgot_pass";
         }
 
         try {
@@ -82,11 +82,11 @@ public class MainController {
         } catch (DataNotFoundException e) {
             e.printStackTrace();
             bindingResult.reject("emailNotFound", e.getMessage());
-            return "forgot_pass";
+            return "/login/forgot_pass";
         } catch (EmailException e) {
             e.printStackTrace();
             bindingResult.reject("sendEmailFail", e.getMessage());
-            return "forgot_pass";
+            return "/login/forgot_pass";
         }
         return "redirect:/";
     }

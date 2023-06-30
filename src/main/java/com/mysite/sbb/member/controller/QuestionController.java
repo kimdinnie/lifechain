@@ -1,6 +1,5 @@
-package com.mysite.sbb.question;
+package com.mysite.sbb.member.controller;
 
-import com.mysite.sbb.member.MemberService;
 import com.mysite.sbb.member.dto.Answer;
 import com.mysite.sbb.member.dto.Member;
 import com.mysite.sbb.member.dto.Question;
@@ -8,6 +7,8 @@ import com.mysite.sbb.member.form.AnswerForm;
 import com.mysite.sbb.member.form.CommentForm;
 import com.mysite.sbb.member.form.QuestionForm;
 import com.mysite.sbb.member.service.AnswerService;
+import com.mysite.sbb.member.service.MemberService;
+import com.mysite.sbb.member.service.QuestionService;
 
 import java.security.Principal;
 
@@ -25,7 +26,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
-
 
 import lombok.RequiredArgsConstructor;
 

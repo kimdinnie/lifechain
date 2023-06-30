@@ -1,13 +1,5 @@
 <html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
 <div layout:fragment="content" class="layout-page">
-	<style>
-	.custom-login {
-	  max-width: 500px;
-	  margin-right: auto;
-	  margin-left: auto;
-	}
-</style>
-    
     <div class="container-xxl custom-login">
       <div class="authentication-wrapper authentication-basic container-p-y">
         <div class="authentication-inner py-4">
@@ -25,7 +17,7 @@
               <!-- /Logo -->
               <h4 class="mb-2">비밀번호를 잊으셨나요? 🔒</h4>
               <p class="mb-4">가입하신 이메일을 입력하시면 임시 비밀번호를 보내드립니다.</p>
-              <form th:action="@{/member/tempPassword}" th:object="${tempPasswordForm}" method="post" id="formAuthentication">
+              <form th:action="@{/forgotPass}" th:object="${tempPasswordForm}" method="post" id="formAuthentication">
         		 <div th:if="${param.error}">
 		            <div class="alert alert-danger">
 		                사용자 이메일을 확인해 주세요.

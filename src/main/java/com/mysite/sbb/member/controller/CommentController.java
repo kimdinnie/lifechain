@@ -1,4 +1,4 @@
-package com.mysite.sbb.comment;
+package com.mysite.sbb.member.controller;
 
 import java.security.Principal;
 import java.util.Optional;
@@ -16,14 +16,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.mysite.sbb.member.MemberService;
 import com.mysite.sbb.member.dto.Answer;
 import com.mysite.sbb.member.dto.Comment;
 import com.mysite.sbb.member.dto.Member;
 import com.mysite.sbb.member.dto.Question;
 import com.mysite.sbb.member.form.CommentForm;
 import com.mysite.sbb.member.service.AnswerService;
-import com.mysite.sbb.question.QuestionService;
+import com.mysite.sbb.member.service.CommentService;
+import com.mysite.sbb.member.service.MemberService;
+import com.mysite.sbb.member.service.QuestionService;
 
 @Controller
 @RequestMapping("/comment")

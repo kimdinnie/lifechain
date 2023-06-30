@@ -1,4 +1,4 @@
-package com.mysite.sbb.comment;
+package com.mysite.sbb.member.service;
 
 import com.mysite.sbb.member.dto.Answer;
 import com.mysite.sbb.member.dto.Comment;

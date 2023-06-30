@@ -1,4 +1,4 @@
-package com.mysite.sbb.member;
+package com.mysite.sbb.member.service;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -10,6 +10,7 @@ import javax.transaction.Transactional;
 import com.mysite.sbb.member.dto.Member;
 import com.mysite.sbb.member.mail.EmailException;
 import com.mysite.sbb.member.mail.TempPasswordMail;
+import com.mysite.sbb.member.repository.MemberRepository;
 import com.mysite.sbb.common.CommonUtil;
 import com.mysite.sbb.common.DataNotFoundException;
 
