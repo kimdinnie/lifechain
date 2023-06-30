@@ -16,11 +16,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.mysite.sbb.answer.Answer;
-import com.mysite.sbb.answer.AnswerService;
 import com.mysite.sbb.member.MemberService;
-import com.mysite.sbb.member.member;
-import com.mysite.sbb.question.Question;
+import com.mysite.sbb.member.dto.Answer;
+import com.mysite.sbb.member.dto.Comment;
+import com.mysite.sbb.member.dto.Member;
+import com.mysite.sbb.member.dto.Question;
+import com.mysite.sbb.member.form.CommentForm;
+import com.mysite.sbb.member.service.AnswerService;
 import com.mysite.sbb.question.QuestionService;
 
 @Controller
@@ -50,7 +52,7 @@ public class CommentController {
     public String createQuestionComment(@PathVariable("id") Integer id, @Valid CommentForm commentForm,
         BindingResult bindingResult, Principal principal) {
         Optional<Question> question = Optional.of(this.questionService.getQuestion(id));
-        Optional<member> user = Optional.of(this.memberService.getMember(principal.getName()));
+        Optional<Member> user = Optional.of(this.memberService.getMember(principal.getName()));
         if (question.isPresent() && user.isPresent()) {
             if (bindingResult.hasErrors()) {
                 return "/comment/comment_form";
@@ -124,7 +126,7 @@ public class CommentController {
     public String createAnswerComment(@PathVariable("id") Integer id, @Valid CommentForm commentForm,
         BindingResult bindingResult, Principal principal) {
         Optional<Answer> answer = Optional.of(this.answerService.getAnswer(id));
-        Optional<member> user = Optional.of(this.memberService.getMember(principal.getName()));
+        Optional<Member> user = Optional.of(this.memberService.getMember(principal.getName()));
         if (answer.isPresent() && user.isPresent()) {
             if (bindingResult.hasErrors()) {
                 return "/comment/comment_form";

@@ -1,11 +1,13 @@
 package com.mysite.sbb.question;
 
-import com.mysite.sbb.answer.Answer;
-import com.mysite.sbb.answer.AnswerForm;
-import com.mysite.sbb.answer.AnswerService;
-import com.mysite.sbb.comment.CommentForm;
-import com.mysite.sbb.member.member;
 import com.mysite.sbb.member.MemberService;
+import com.mysite.sbb.member.dto.Answer;
+import com.mysite.sbb.member.dto.Member;
+import com.mysite.sbb.member.dto.Question;
+import com.mysite.sbb.member.form.AnswerForm;
+import com.mysite.sbb.member.form.CommentForm;
+import com.mysite.sbb.member.form.QuestionForm;
+import com.mysite.sbb.member.service.AnswerService;
 
 import java.security.Principal;
 
@@ -68,7 +70,7 @@ public class QuestionController {
         if (bindingResult.hasErrors()) {
             return "/question/question_form";
         }
-        member member = this.memberService.getMember(principal.getName());
+        Member member = this.memberService.getMember(principal.getName());
         this.questionService.create(questionForm.getSubject(), questionForm.getContent(), member);
         return "redirect:/question/list";
     }
@@ -113,16 +115,10 @@ public class QuestionController {
 	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/vote/{id}")
 	public String questionVote(Principal principal, @PathVariable("id") Integer id) {
-	    Question question = this.questionService.getQuestion(id);
-	    member member = this.memberService.getMember(principal.getName());
-
-	    if (this.questionService.hasVoted(question, member)) {
-	        this.questionService.cancelVote(question, member);
-	    } else {
-	        this.questionService.vote(question, member);
-	    }
-
-	    return String.format("redirect:/question/detail/%s", id);
+		Question question = this.questionService.getQuestion(id);
+		Member member = this.memberService.getMember(principal.getName());
+		this.questionService.vote(question, member);
+		return String.format("redirect:/question/detail/%s", id);
 	}
 
 	

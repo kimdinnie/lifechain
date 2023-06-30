@@ -11,8 +11,6 @@ import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
-import com.mysite.sbb.EmailException;
-
 import lombok.RequiredArgsConstructor;
 
 @Service

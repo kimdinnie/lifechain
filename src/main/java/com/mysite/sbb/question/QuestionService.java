@@ -5,10 +5,11 @@ import java.util.List;
 import java.util.Optional;
 import java.time.LocalDateTime;
 
-import com.mysite.sbb.DataNotFoundException;
-import com.mysite.sbb.member.member;
-
-import com.mysite.sbb.answer.Answer;
+import com.mysite.sbb.common.DataNotFoundException;
+import com.mysite.sbb.member.dto.Answer;
+import com.mysite.sbb.member.dto.Member;
+import com.mysite.sbb.member.dto.Question;
+import com.mysite.sbb.member.repository.QuestionRepository;
 
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Page;
@@ -39,9 +40,9 @@ public class QuestionService {
             @Override
             public Predicate toPredicate(Root<Question> q, CriteriaQuery<?> query, CriteriaBuilder cb) {
                 query.distinct(true);  // 중복을 제거 
-                Join<Question, member> u1 = q.join("author", JoinType.LEFT);
+                Join<Question, Member> u1 = q.join("author", JoinType.LEFT);
                 Join<Question, Answer> a = q.join("answerList", JoinType.LEFT);
-                Join<Answer, member> u2 = a.join("author", JoinType.LEFT);
+                Join<Answer, Member> u2 = a.join("author", JoinType.LEFT);
                 return cb.or(cb.like(q.get("subject"), "%" + kw + "%"), // 제목 
                         cb.like(q.get("content"), "%" + kw + "%"),      // 내용 
                         cb.like(u1.get("username"), "%" + kw + "%"),    // 질문 작성자 
@@ -64,7 +65,7 @@ public class QuestionService {
 		}
 	}
 	
-	public void create(String subject, String content, member member) {
+	public void create(String subject, String content, Member member) {
 		Question q = new Question();
 		q.setSubject(subject);
 		q.setContent(content);
@@ -96,16 +97,16 @@ public class QuestionService {
 		this.questionRepository.delete(question);
 	}
 	
-	public void vote(Question question, member member) {
+	public void vote(Question question, Member member) {
 		question.getVoter().add(member);
 		this.questionRepository.save(question);
 	}
 	
-    public boolean hasVoted(Question question, member member) {
+    public boolean hasVoted(Question question, Member member) {
         return question.getVoter().contains(member);
     }
     
-    public void cancelVote(Question question, member member) {
+    public void cancelVote(Question question, Member member) {
         question.getVoter().remove(member);
     }
 

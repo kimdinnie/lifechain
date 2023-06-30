@@ -1,4 +1,5 @@
-<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{layout}">
 <div layout:fragment="content" class="layout-page">
 <style>
 	.custom-login {
@@ -25,7 +26,7 @@
               <h4 class="mb-2">회원가입에 오신 걸 환영합니다! 🚀</h4>
               <p class="mb-4">회원이 되셔서 다양한 정보를 얻어보세요!</p>
 
-              <form th:action="@{/member/register}" th:object="${memberRegisterForm}" method="post" id="formAuthentication" class="mb-3">
+              <form th:action="@{/register}" th:object="${memberRegisterForm}" method="post" id="formAuthentication" class="mb-3">
                 <div th:replace="~{form_errors :: formErrorsFragment}"></div>
                 <div class="mb-3">
                   <label for="id" class="form-label">사용자 이메일</label>
@@ -94,7 +95,7 @@
 
               <p class="text-center">
                 <span>이미 회원이십니까?</span>
-                <a th:href="@{/member/login}">
+                <a th:href="@{/login}">
                   <span>로그인</span>
                 </a>
               </p>
