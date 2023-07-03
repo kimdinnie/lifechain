@@ -20,12 +20,15 @@ public class MemberDto {
     private Date lastLoginDate; //마지막 접속일
     private String memberPw;
     private String memberTel;
+    private MemberStatus memberStatus; // 계정상태를 MemberStatus enum 타입으로 변경
+
 
     @Builder
-    public MemberDto(long id, String memberId, String memberNick, LocalDateTime memberDate, LocalDateTime lastLoginDate, String memberPw, String memberTel) {
+    public MemberDto(long id, String memberId, String memberNick, MemberStatus memberStatus, LocalDateTime memberDate, LocalDateTime lastLoginDate, String memberPw, String memberTel) {
         this.id = id;
         this.memberId = memberId;
         this.memberNick = memberNick;
+        this.memberStatus = memberStatus; // 생성자에도 MemberStatus enum 타입 적용
         this.memberDate = convertToDate(memberDate);
         this.lastLoginDate = convertToDate(lastLoginDate);
         this.memberPw = memberPw;

@@ -1,0 +1,226 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/admin/templates/layouts/default_layout}">
+
+<!-- Content -->
+<div layout:fragment="content">
+    <div class="container-xxl flex-grow-1 container-p-y">
+        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Account/</span> 회원정보 수정</h4>
+
+        <div class="row">
+            <div class="col-md-12">
+                <ul class="nav nav-pills flex-column flex-md-row mb-3">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="javascript:void(0);"><i class="bx bx-user me-1"></i>
+                            Account</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="pages-account-settings-notifications.html"
+                        ><i class="bx bx-bell me-1"></i> Notifications</a
+                        >
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="pages-account-settings-connections.html"
+                        ><i class="bx bx-link-alt me-1"></i> Connections</a
+                        >
+                    </li>
+                </ul>
+                <div class="card mb-4">
+                    <h5 class="card-header">회원정보 수정</h5>
+                    <h5 class="card-header">안녕하세요 <span th:text="${member.memberNick}"></span>님</h5>
+                    <!-- Account -->
+                    <div class="card-body">
+                        <div class="d-flex align-items-start align-items-sm-center gap-4">
+                            <img
+                                    th:src="@{/assets/img/logo/logo.png}"
+                                    alt="user-avatar"
+                                    class="d-block rounded"
+                                    height="100"
+                                    width="100"
+                                    id="noProfileImage"
+                            />
+                            <div class="button-wrapper">
+                                <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
+                                    <span class="d-none d-sm-block">사진 변경</span>
+                                    <i class="bx bx-upload d-block d-sm-none"></i>
+                                    <input
+                                            type="file"
+                                            id="upload"
+                                            class="account-file-input"
+                                            hidden
+                                            accept="image/png, image/jpeg"
+                                    />
+                                </label>
+                                <button type="button" class="btn btn-outline-secondary account-image-reset mb-4">
+                                    <i class="bx bx-reset d-block d-sm-none"></i>
+                                    <span class="d-none d-sm-block">Reset</span>
+                                </button>
+
+                                <p class="text-muted mb-0">Allowed JPG, GIF or PNG. Max size of 800K</p>
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="my-0"/>
+                    <div class="card-body">
+                        <form id="formAccountSetting" method="post"
+                              th:action="@{'/admin/account/update/' + ${member.id}}">
+                            <input type="hidden" name="_method" value="PUT"/>
+                            <input type="hidden" th:value="${member.id}"/>
+                            <!--                            <div th:replace="~{form_errors :: formErrorsFragment}"></div>-->
+                            <div class="row">
+                                <div class="mb-3 col-md-6">
+                                    <label for="memberId" class="form-label">E-mail</label>
+                                    <input
+                                            class="form-control"
+                                            type="text"
+                                            id="memberId"
+                                            name="memberId"
+                                            th:field="${member.memberId}"
+                                            readonly
+                                    />
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                    <label for="memberNick" class="form-label">닉네임</label>
+                                    <input
+                                            type="text"
+                                            class="form-control"
+                                            id="memberNick"
+                                            name="memberNick"
+                                            th:field="${member.memberNick}"
+                                    />
+                                </div>
+
+                                <div class="mb-3 col-md-6">
+                                    <label class="form-label">Phone Number</label>
+                                    <div class="input-group input-group-merge">
+                                        <span class="input-group-text">KR (+82)</span>
+                                        <input type="text"
+                                               id="memberTelWithValue"
+                                               name="memberTel"
+                                               class="form-control"
+                                               th:if="${memberInfo != null and memberInfo.memberTel != null}"
+                                               th:value="${memberInfo.memberTel}"/>
+
+                                        <input th:if="${memberInfo == null || memberInfo.memberTel == null}"
+                                               id="memberTelPlaceholder"
+                                               name="memberTel"
+                                               placeholder="01012345678, -빼고 숫자만 입력해주세요."
+                                               class="form-control"/>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3 col-md-6">
+                                    <label class="form-label">연락처 인증</label>
+                                    <div class="input-group input-group-merge">
+                                        <input class="form-control" placeholder="핸드폰 인증번호를 입력해주세요.">
+                                        <button class="btn btn-primary me-2">인증번호 요청</button>
+                                    </div>
+
+                                </div>
+
+                                <div class="mb-3 col-md-6">
+                                    <label class="form-label">Zip Code</label>
+                                    <input type="text"
+                                           id="zipcodeWithValue"
+                                           name="zipcode"
+                                           class="form-control"
+                                           th:if="${memberInfo != null and memberInfo.zipcode != null}"
+                                           th:value="${memberInfo.zipcode}"/>
+
+                                    <div class="input-group input-group-merge">
+                                        <input th:if="${memberInfo == null || memberInfo.memberTel == null}"
+                                               id="zipcodeWithPlaceholder"
+                                               name="zipcode"
+                                               placeholder="00000"
+                                               class="form-control"/>
+                                        <button id="kakao_address_button" class="btn btn-primary me-2">주소 찾기</button>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3 col-md-6">
+                                    <div class="input-group input-group-merge">
+
+                                    </div>
+                                </div>
+
+                                <div class="mb-3 col-md-6">
+                                    <label class="form-label">Address 1</label>
+
+                                    <input type="text"
+                                           id="address1WithValue"
+                                           name="address1"
+                                           class="form-control"
+                                           th:if="${memberInfo != null and memberInfo.address1 != null}"
+                                           th:value="${memberInfo.address1}"/>
+
+                                    <input th:if="${memberInfo == null || memberInfo.address1 == null}"
+                                           id="address1Placeholder"
+                                           name="address1"
+                                           placeholder="서울 특별시 광진구 OOO로 OO길"
+                                           class="form-control"/>
+                                </div>
+
+                                <div class="mb-3 col-md-6">
+                                    <label class="form-label">Address 2</label>
+
+                                    <input type="text"
+                                           id="address2WithValue"
+                                           name="address2"
+                                           class="form-control"
+                                           th:if="${memberInfo != null and memberInfo.address2 != null}"
+                                           th:value="${memberInfo.address2}"/>
+
+                                    <input th:if="${memberInfo == null || memberInfo.address2 == null}"
+                                           id="address2Placeholder"
+                                           name="address2"
+                                           placeholder="OO동 OO호"
+                                           class="form-control"/>
+                                </div>
+
+                                <div class="mb-3 col-md-6">
+                                    <label class="form-label">한마디</label>
+
+                                    <input type="text"
+                                           id="memberIntroduceWithValue"
+                                           name="memberIntroduce"
+                                           class="form-control"
+                                           th:if="${memberInfo != null and memberInfo.memberIntroduce != null}"
+                                           th:value="${memberInfo.memberIntroduce}"/>
+
+                                    <input th:if="${memberInfo == null || memberInfo.address2 == null}"
+                                           id="memberIntroducePlaceholder"
+                                           name="memberIntroduce"
+                                           placeholder="자기소개를 적어주세요."
+                                           class="form-control"/>
+                                </div>
+
+                                <div class="mb-3 col-md-6">
+                                    <label class="form-label" for="country">계정상태</label>
+                                    <select id="country" class="select2 form-select">
+                                        <option value="">Select</option>
+                                        <option value="ACTIVE">Active</option>
+                                        <option value="DEACTIVE">Deactive</option>
+                                        <option value="DORMANT">Dormant</option>
+                                        <option value="WITHDRAWAL">withdrawal</option>
+                                    </select>
+                                </div>
+
+                            </div>
+
+                            <div class="mt-2">
+                                <button type="submit" class="btn btn-primary me-2">수정</button>
+                                <button type="reset" class="btn btn-outline-secondary">취소</button>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- /Account -->
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- / Content -->
+
+</html>

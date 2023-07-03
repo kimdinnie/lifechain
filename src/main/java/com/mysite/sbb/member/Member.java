@@ -22,21 +22,24 @@ import lombok.Setter;
 public class Member extends BaseEntity {
     /* 기본키(primary key) */
     @Id
-
     /* 자동증가(Auto Increment) */
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long id; // Member 엔티티 PK와 관련된 MemberInfo PK값 (동일한 값을 사용)
 
     @Column(unique = true)
     private String memberId;
+
+    @OneToOne(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private MemberInfo memberInfo;
 
     @Column(unique = true)
     private String memberNick;
 
     private String memberPw;
 
-    @Column(unique = true) //전화번호 중복 방지 //회원가입에서 안쓸거라면 지우는게 좋을 것 같아용.
-    private String memberTel;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "member_status")
+    private MemberStatus memberStatus;
 
     @OneToMany(mappedBy = "author")
     private List<Question> question = new ArrayList<>();
@@ -48,9 +51,10 @@ public class Member extends BaseEntity {
     private List<Comment> comment = new ArrayList<>();
 
     @Builder
-    public Member(String memberId, String memberNick, String memberPw) {
+    public Member(String memberId, String memberNick, String memberPw, MemberStatus memberStatus) {
         this.memberId = memberId;
         this.memberNick = memberNick;
         this.memberPw = memberPw;
+        this.memberStatus = memberStatus;
     }
 }

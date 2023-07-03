@@ -46,13 +46,22 @@
                             </thead>
                             <tbody class="table-border-bottom-0">
                             <tr th:each="memberList: ${memberList}">
-                                <td><img th:src="@{/assets/img/avatars/5.png}" alt="Avatar" class="w-px-40 h-auto rounded-circle"/>
+                                <td><img th:src="@{/assets/img/avatars/5.png}" alt="Avatar"
+                                         class="w-px-40 h-auto rounded-circle"/>
                                 </td>
-                                <td><a th:href="@{'/admin/account/'+${memberList.id}}" th:text="${memberList.memberId}"></a></td>
+                                <td><a th:href="@{'/admin/account/'+${memberList.id}}"
+                                       th:text="${memberList.memberId}"></a></td>
                                 <td th:text="${memberList.memberNick}"></td>
                                 <td th:text="${memberList.memberDate}"></td>
                                 <td th:text="${memberList.lastLoginDate}"></td>
-                                <td><span class="badge bg-label-primary me-1">Active</span></td>
+
+                                <td>
+                                    <span th:if="${memberList.memberStatus.isActive()}" class="badge bg-label-primary me-1">Active</span>
+                                    <span th:if="${memberList.memberStatus.isDeactive()}" class="badge bg-label-primary me-2">Deactive</span>
+                                    <span th:if="${memberList.memberStatus.isDormant()}" class="badge bg-label-primary me-3">Dormant</span>
+                                    <span th:if="${memberList.memberStatus.isWithdrawal()}" class="badge bg-label-primary me-4">WithDrawal</span>
+                                </td>
+
                                 <td>
                                     <div class="dropdown">
                                         <button type="button" class="btn p-0 dropdown-toggle hide-arrow"

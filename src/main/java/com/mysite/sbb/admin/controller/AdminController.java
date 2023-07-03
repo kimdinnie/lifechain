@@ -9,8 +9,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class AdminController {
     @GetMapping("/")
     public String adminIndex() {
-
         return "/admin/index";
+    }
+
+    @GetMapping("/error")
+    public String adminError(){
+        return "/admin/templates/pages/error";
     }
 
 }
