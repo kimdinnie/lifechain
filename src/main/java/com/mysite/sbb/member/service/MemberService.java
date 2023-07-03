@@ -1,5 +1,9 @@
 package com.mysite.sbb.member.service;
 
+import com.mysite.sbb.member.entity.MemberInfo;
+import com.mysite.sbb.member.entity.MemberStatus;
+import com.mysite.sbb.member.mail.EmailException;
+import com.mysite.sbb.member.repository.MemberInfoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -8,8 +12,7 @@ import java.util.Optional;
 
 import javax.transaction.Transactional;
 
-import com.mysite.sbb.member.dto.Member;
-import com.mysite.sbb.member.mail.EmailException;
+import com.mysite.sbb.member.entity.Member;
 import com.mysite.sbb.member.mail.TempPasswordMail;
 import com.mysite.sbb.member.repository.MemberRepository;
 import com.mysite.sbb.common.CommonUtil;
@@ -29,21 +32,8 @@ public class MemberService {
     private final TempPasswordMail tempPasswordMail;
     private final CommonUtil commonUtil;
 
-<<<<<<< HEAD:src/main/java/com/mysite/sbb/member/MemberService.java
-    public Member create(String memberId, String memberPw, String memberNick) {
-=======
-		
-//    public Member create(String memberId, String memberPw, String memberNick) {
-//        Member member = new Member();
-//        member.setMemberId(memberId);
-//        member.setMemberPw(passwordEncoder.encode(memberPw));
-//        member.setMemberNick(memberNick);
-//        this.memberRepository.save(member);
-//        return member;
-//    }
 
-    public Member create(String memberId,String memberPw,String memberNick){
->>>>>>> 155196765207b3036d40917743de7cb6424dce00:src/main/java/com/mysite/sbb/member/service/MemberService.java
+    public Member create(String memberId, String memberPw, String memberNick) {
         Member member = Member.builder()
                 .memberId(memberId)
                 .memberPw(passwordEncoder.encode(memberPw))
@@ -81,12 +71,12 @@ public class MemberService {
         member.setMemberNick(memberNick);
         return member;
     }
-    
+
     @Transactional
     public void modifyPassword(String memberId) throws EmailException {
         String tempPassword = commonUtil.createTempPassword();
         Member member = memberRepository.findBymemberId(memberId)
-            .orElseThrow(() -> new DataNotFoundException("해당 이메일의 유저가 없습니다."));
+                .orElseThrow(() -> new DataNotFoundException("해당 이메일의 유저가 없습니다."));
         member.setMemberPw(passwordEncoder.encode(tempPassword));
         memberRepository.save(member);
         tempPasswordMail.sendSimpleMessage(memberId, tempPassword);

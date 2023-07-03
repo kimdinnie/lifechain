@@ -1,21 +1,17 @@
 package com.mysite.sbb.admin.controller;
 
 import com.mysite.sbb.admin.service.AccountService;
-import com.mysite.sbb.member.dto.Member;
+import com.mysite.sbb.member.entity.Member;
 import com.mysite.sbb.member.dto.MemberDto;
 
-import com.mysite.sbb.member.MemberInfo;
-import com.mysite.sbb.member.MemberInfoDto;
+import com.mysite.sbb.member.entity.MemberInfo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.security.Principal;
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 @RequestMapping("/admin/account")

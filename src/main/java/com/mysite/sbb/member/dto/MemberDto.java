@@ -1,5 +1,6 @@
 package com.mysite.sbb.member.dto;
 
+import com.mysite.sbb.member.entity.MemberStatus;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

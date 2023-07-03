@@ -2,18 +2,14 @@ package com.mysite.sbb.admin.service;
 
 import com.mysite.sbb.admin.repository.AccountRepository;
 import com.mysite.sbb.common.DataNotFoundException;
-<<<<<<< HEAD
-import com.mysite.sbb.member.*;
-=======
-import com.mysite.sbb.member.dto.Member;
 import com.mysite.sbb.member.dto.MemberDto;
+import com.mysite.sbb.member.entity.Member;
+import com.mysite.sbb.member.entity.MemberInfo;
 import com.mysite.sbb.member.repository.MemberRepository;
-
->>>>>>> 155196765207b3036d40917743de7cb6424dce00
+import com.mysite.sbb.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
 
 import java.util.ArrayList;
 import java.util.List;

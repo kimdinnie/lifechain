@@ -1,8 +1,8 @@
 package com.mysite.sbb.member.service;
 
-import com.mysite.sbb.member.dto.Answer;
-import com.mysite.sbb.member.dto.Member;
-import com.mysite.sbb.member.dto.Question;
+import com.mysite.sbb.member.entity.Answer;
+import com.mysite.sbb.member.entity.Member;
+import com.mysite.sbb.member.entity.Question;
 import com.mysite.sbb.member.repository.AnswerRepository;
 import com.mysite.sbb.common.DataNotFoundException;
 

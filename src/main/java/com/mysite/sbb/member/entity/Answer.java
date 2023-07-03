@@ -1,17 +1,16 @@
-package com.mysite.sbb.member.dto;
+package com.mysite.sbb.member.entity;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.ManyToMany;
 
 import lombok.Getter;
@@ -20,7 +19,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-public class Question {
+public class Answer {
 	/* 기본키(primary key) */
 	@Id
 	
@@ -28,36 +27,25 @@ public class Question {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	@Column(length = 200)
-	private String subject;
-	
 	@Column(columnDefinition = "TEXT")
 	private String content;
 	
 	private LocalDateTime createDate;
 	
-	@OneToMany(mappedBy = "question", cascade = CascadeType.REMOVE)
-	private List<Answer> answerList;
+	/* N:1 ForeignKey */
+	@ManyToOne
+	private Question question;
 	
-	@OneToMany(mappedBy = "question")
+	@OneToMany(mappedBy = "answer")
 	private List<Comment> commentList;
 	
 	@ManyToOne
 	private Member author;
 	
 	private LocalDateTime modifyDate;
-	
-	private Integer views;
-	
+
 	@ManyToMany
 	Set<Member> voter;
 	// 추천 중복을 피하기 위해 Set
 	
-	public void setAuthor(Member author) {
-        this.author = author;
-        author.getQuestion().add(this);
-    }
-	
 }
-
-

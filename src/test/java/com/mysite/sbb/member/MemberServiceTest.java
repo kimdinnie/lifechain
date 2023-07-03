@@ -1,5 +1,6 @@
 package com.mysite.sbb.member;
 
+import com.mysite.sbb.member.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.password.PasswordEncoder;

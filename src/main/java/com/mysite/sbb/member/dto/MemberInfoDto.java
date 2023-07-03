@@ -1,4 +1,4 @@
-package com.mysite.sbb.member;
+package com.mysite.sbb.member.dto;
 
 import lombok.Builder;
 import lombok.Getter;

@@ -3,9 +3,10 @@ package com.mysite.sbb.member.repository;
 import java.util.List;
 import java.util.Optional;
 
+import com.mysite.sbb.member.entity.MemberStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.mysite.sbb.member.dto.Member;
+import com.mysite.sbb.member.entity.Member;
 
 public interface MemberRepository extends JpaRepository<Member, Long>{
 	Optional<Member> findBymemberId(String memberId);

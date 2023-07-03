@@ -13,7 +13,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.mysite.sbb.config.MemberRole;
-import com.mysite.sbb.member.dto.Member;
+import com.mysite.sbb.member.entity.Member;
 import com.mysite.sbb.member.repository.MemberRepository;
 
 import lombok.RequiredArgsConstructor;

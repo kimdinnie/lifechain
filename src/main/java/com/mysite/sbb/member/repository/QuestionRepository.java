@@ -10,7 +10,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import com.mysite.sbb.member.dto.Question;
+import com.mysite.sbb.member.entity.Question;
 
 import javax.transaction.Transactional;
 

@@ -1,4 +1,4 @@
-package com.mysite.sbb.member;
+package com.mysite.sbb.member.entity;
 
 import com.mysite.sbb.common.BaseEntity;
 import lombok.Getter;

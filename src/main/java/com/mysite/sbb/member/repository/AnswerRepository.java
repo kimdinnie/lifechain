@@ -5,8 +5,8 @@ import org.springframework.data.domain.Pageable;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.mysite.sbb.member.dto.Answer;
-import com.mysite.sbb.member.dto.Question;
+import com.mysite.sbb.member.entity.Answer;
+import com.mysite.sbb.member.entity.Question;
 
 public interface AnswerRepository extends JpaRepository<Answer, Integer>{
 	Page<Answer> findAllByQuestion(Question question, Pageable pageable);

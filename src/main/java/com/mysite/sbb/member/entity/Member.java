@@ -1,4 +1,4 @@
-package com.mysite.sbb.member.dto;
+package com.mysite.sbb.member.entity;
 
 import java.util.ArrayList;
 import java.util.List;

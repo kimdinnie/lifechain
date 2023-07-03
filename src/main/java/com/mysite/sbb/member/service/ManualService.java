@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.mysite.sbb.member.dto.Manual;
+import com.mysite.sbb.member.entity.Manual;
 import com.mysite.sbb.member.repository.ManualRepository;
 
 import lombok.RequiredArgsConstructor;

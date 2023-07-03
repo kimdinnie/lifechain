@@ -7,7 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.mysite.sbb.member.dto.Manual;
+import com.mysite.sbb.member.entity.Manual;
 import com.mysite.sbb.member.service.ManualService;
 
 import lombok.RequiredArgsConstructor;

@@ -1,9 +1,9 @@
 package com.mysite.sbb.member.service;
 
-import com.mysite.sbb.member.dto.Answer;
-import com.mysite.sbb.member.dto.Comment;
-import com.mysite.sbb.member.dto.Member;
-import com.mysite.sbb.member.dto.Question;
+import com.mysite.sbb.member.entity.Answer;
+import com.mysite.sbb.member.entity.Comment;
+import com.mysite.sbb.member.entity.Member;
+import com.mysite.sbb.member.entity.Question;
 import com.mysite.sbb.member.repository.CommentRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
