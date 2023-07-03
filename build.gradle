@@ -35,6 +35,9 @@ dependencies {
 	implementation 'org.commonmark:commonmark:0.21.0'
 	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
     implementation 'mysql:mysql-connector-java:8.0.27'
+    implementation 'org.springframework.boot:spring-boot-starter-mail'
+    implementation 'org.modelmapper:modelmapper:2.1.1'
+    
 }
 
 tasks.named('test') {

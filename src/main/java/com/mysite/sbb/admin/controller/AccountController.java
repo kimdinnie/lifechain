@@ -1,8 +1,8 @@
 package com.mysite.sbb.admin.controller;
 
 import com.mysite.sbb.admin.service.AccountService;
-import com.mysite.sbb.member.Member;
-import com.mysite.sbb.member.MemberDto;
+import com.mysite.sbb.member.dto.Member;
+import com.mysite.sbb.member.dto.MemberDto;
 
 import com.mysite.sbb.member.MemberInfo;
 import com.mysite.sbb.member.MemberInfoDto;

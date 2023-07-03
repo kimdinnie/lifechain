@@ -5,7 +5,8 @@
 	  max-width: 1000px;
 	  margin-right: auto;
 	  margin-left: auto;
-	}
+}
+	  
 </style>
 		<div class="container-xxl custom-container">
 		    <!-- 질문 -->
@@ -28,14 +29,17 @@
 		            </div>
 			 		<div class="my-3">
 					<a href="javascript:void(0);" class="recommend btn btn-sm btn-outline-secondary"
-		                th:data-uri="@{|/question/vote/${question.id}|}">
+		                th:data-uri="@{|/question/vote/${question.id}|}" th:data-voter="#{question.voter}" data-bs-toggle="tooltip" 
+						data-bs-placement="top" title="추천은 한 게시물당 한 번만 가능합니다.">
 		                추천
 		                <span class="badge rounded-pill bg-success" th:text="${#lists.size(question.voter)}"></span>
 		            </a>
+		            
 		            <a th:href="@{|/question/modify/${question.id}|}" class="btn btn-sm btn-outline-secondary"
 		                sec:authorize="isAuthenticated()"
 		                th:if="${question.author != null and #authentication.getPrincipal().getUsername() == question.author.memberId}"
 		                th:text="수정"></a>
+
 		            <a href="javascript:void(0);" th:data-uri="@{|/question/delete/${question.id}|}"
 		                class="delete btn btn-sm btn-outline-secondary" sec:authorize="isAuthenticated()"
 		                th:if="${question.author != null and #authentication.getPrincipal().getUsername() == question.author.memberId}"
@@ -139,6 +143,7 @@
 		const recommend_elements = document.getElementsByClassName("recommend");
 		Array.from(recommend_elements).forEach(function(element) {
 		    element.addEventListener('click', function() {
+				    const isActive = this.classList.contains('active');
 		            location.href = this.dataset.uri;
 		    });
 		});

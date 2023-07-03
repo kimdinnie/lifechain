@@ -6,6 +6,9 @@
 	  margin-right: auto;
 	  margin-left: auto;
 	}
+	.height-table {
+		height: 700px;
+	}
 </style>
 		<div class = "container-xxl custom-container">
 		<div class="row my-3">
@@ -21,7 +24,7 @@
 	    </div>
 	    
               <!-- Basic Bootstrap Table -->
-              <div class="card">
+              <div class="card height-table">
                 <h5 class="card-header">질문&문의 게시판</h5>
                 <div class="table-responsive text-nowrap">
                   <table class="table">
@@ -34,11 +37,15 @@
                         <th>조회수</th>
                       </tr>
                     </thead>
-                    <tbody class="table-border-bottom-0" th:if="${paging.empty}">
-		                <tr>
-		                    <td colspan="6" class="text-center">등록된 게시물이 없습니다.</td>
-		                </tr>
-		            </tbody>
+					<tbody class="table-border-bottom-0" th:if="${paging.empty}">
+					    <tr>
+					        <td colspan="6" class="text-center" style="vertical-align: middle;">
+					            <div style="display: flex; justify-content: center;">
+					                <span>등록된 게시물이 없습니다.</span>
+					            </div>
+					        </td>
+					    </tr>
+					</tbody>
                     <tbody class="table-border-bottom-0">
                       <tr class = "text-center" th:each="question, loop : ${paging}">
                         <td th:text="${paging.getTotalElements - (paging.number * paging.size) - loop.index}"></td>
@@ -70,11 +77,9 @@
                       </tr>
                     </tbody>
                   </table>
-                </div>
-              </div>
-              <!--/ Basic Bootstrap Table -->	    
-	    <br>
-	        <!-- 페이징처리 시작 -->
+                  <br>
+                  
+    <!-- 페이징처리 시작 -->
     <div th:if="${!paging.isEmpty()}">
         <ul class="pagination justify-content-center">
 			<li class="page-item" th:classappend="${!paging.hasPrevious()} ? 'disabled'">
@@ -114,6 +119,11 @@
         <input type="hidden" id="kw" name="kw" th:value="${kw}">
         <input type="hidden" id="page" name="page" th:value="${paging.number}">
     </form>
+                </div>
+              </div>
+              <!--/ Basic Bootstrap Table -->	    
+	    <br>
+
     </div>
 	</div>
 	<script layout:fragment="script" type='text/javascript'>
