@@ -10,73 +10,77 @@
 
         <div class="row">
             <div class="col-md-12">
-                <ul class="nav nav-pills flex-column flex-md-row mb-3">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="javascript:void(0);"><i class="bx bx-user me-1"></i>
-                            Account</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="pages-account-settings-notifications.html"
-                        ><i class="bx bx-bell me-1"></i> Notifications</a
-                        >
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="pages-account-settings-connections.html"
-                        ><i class="bx bx-link-alt me-1"></i> Connections</a
-                        >
-                    </li>
-                </ul>
                 <div class="card mb-4">
                     <h5 class="card-header">회원정보 수정</h5>
                     <h5 class="card-header">안녕하세요 <span th:text="${member.memberNick}"></span>님</h5>
                     <!-- Account -->
-                    <div class="card-body">
-                        <div class="d-flex align-items-start align-items-sm-center gap-4">
-                            <img
-                                    th:src="@{/assets/img/logo/logo.png}"
-                                    alt="user-avatar"
-                                    class="d-block rounded"
-                                    height="100"
-                                    width="100"
-                                    id="noProfileImage"
-                            />
-                            <div class="button-wrapper">
-                                <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
-                                    <span class="d-none d-sm-block">사진 변경</span>
-                                    <i class="bx bx-upload d-block d-sm-none"></i>
-                                    <input
-                                            type="file"
-                                            id="upload"
-                                            class="account-file-input"
-                                            hidden
-                                            accept="image/png, image/jpeg"
-                                    />
-                                </label>
-                                <button type="button" class="btn btn-outline-secondary account-image-reset mb-4">
-                                    <i class="bx bx-reset d-block d-sm-none"></i>
-                                    <span class="d-none d-sm-block">Reset</span>
-                                </button>
+                    <form id="formAccountSetting" method="post"
+                          th:action="@{'/admin/account/update/' + ${member.id}}">
+                        <input type="hidden" th:value="${member.id}"/>
+                        <div class="card-body">
+                            <div class="d-flex align-items-start align-items-sm-center gap-4">
 
-                                <p class="text-muted mb-0">Allowed JPG, GIF or PNG. Max size of 800K</p>
+                                <div id="profileImage">
+                                    <div id="noMemberImage" th:if="${memberImg == null}">
+                                        <img
+                                                th:src="@{/assets/img/logo/logo.png}"
+                                                alt="user-avatar"
+                                                class="d-block rounded"
+                                                height="100"
+                                                width="100"
+                                        />
+                                    </div>
+
+                                    <div id="memberImage" th:if="${memberImg!= null}">
+                                        <img
+                                                th:src="@{/display(fileName=${memberImg.uploadPath + '/' + memberImg.uuid + '_' + memberImg.fileName})}"
+                                                alt="user-avatar"
+                                                class="d-block rounded"
+                                                height="100"
+                                                width="100"
+                                        />
+                                    </div>
+                                </div>
+
+                                <div id="uploadResult">
+                                    <!--업로드 이미지-->
+                                </div>
+
+                                <div class="button-wrapper">
+                                    <!-- label의 for, input의 id, name은 통일시켜줘야 한다 -->
+                                    <label for="uploadfile" class="btn btn-primary me-2 mb-4" tabindex="0">
+                                        <span class="d-none d-sm-block">사진 변경</span>
+                                        <i class="bx bx-upload d-block d-sm-none"></i>
+                                        <input
+                                                type="file"
+                                                id="uploadfile"
+                                                name="uploadfile"
+                                                hidden
+                                                class="account-file-input"
+                                        />
+                                        <!--프로필 이미지만 올릴거니까 multiple X-->
+                                    </label>
+
+                                    <button type="button" onclick="deleteFile()"
+                                            class="btn btn-outline-secondary account-image-reset mb-4">
+                                        <i class="bx bx-reset d-block d-sm-none"></i>
+                                        <span class="d-none d-sm-block">Reset</span>
+                                    </button>
+                                    <p class="text-muted mb-0">JPG, PNG 파일만 등록할 수 있습니다.</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <hr class="my-0"/>
-                    <div class="card-body">
-                        <form id="formAccountSetting" method="post"
-                              th:action="@{'/admin/account/update/' + ${member.id}}">
-                            <input type="hidden" name="_method" value="PUT"/>
-                            <input type="hidden" th:value="${member.id}"/>
-                            <!--                            <div th:replace="~{form_errors :: formErrorsFragment}"></div>-->
+                        <hr class="my-0"/>
+                        <div class="card-body">
                             <div class="row">
                                 <div class="mb-3 col-md-6">
-                                    <label for="memberId" class="form-label">E-mail</label>
+                                    <label for="memberId" class="form-label">등록된 이메일</label>
                                     <input
                                             class="form-control"
                                             type="text"
                                             id="memberId"
                                             name="memberId"
-                                            th:field="${member.memberId}"
+                                            th:value="${member.memberId}"
                                             readonly
                                     />
                                 </div>
@@ -87,12 +91,12 @@
                                             class="form-control"
                                             id="memberNick"
                                             name="memberNick"
-                                            th:field="${member.memberNick}"
+                                            th:value="${member.memberNick}"
                                     />
                                 </div>
 
                                 <div class="mb-3 col-md-6">
-                                    <label class="form-label">Phone Number</label>
+                                    <label class="form-label">연락처</label>
                                     <div class="input-group input-group-merge">
                                         <span class="input-group-text">KR (+82)</span>
                                         <input type="text"
@@ -120,21 +124,23 @@
                                 </div>
 
                                 <div class="mb-3 col-md-6">
-                                    <label class="form-label">Zip Code</label>
-                                    <input type="text"
-                                           id="zipcodeWithValue"
-                                           name="zipcode"
-                                           class="form-control"
-                                           th:if="${memberInfo != null and memberInfo.zipcode != null}"
-                                           th:value="${memberInfo.zipcode}"/>
-
+                                    <label class="form-label">우편번호</label>
                                     <div class="input-group input-group-merge">
+                                        <input type="text"
+                                               id="sample6_postcode"
+                                               name="zipcode"
+                                               class="form-control"
+                                               th:if="${memberInfo != null and memberInfo.zipcode != null}"
+                                               th:value="${memberInfo.zipcode}"/>
+
                                         <input th:if="${memberInfo == null || memberInfo.memberTel == null}"
                                                id="zipcodeWithPlaceholder"
                                                name="zipcode"
                                                placeholder="00000"
-                                               class="form-control"/>
-                                        <button id="kakao_address_button" class="btn btn-primary me-2">주소 찾기</button>
+                                               class="form-control"
+                                        />
+                                        <input type="button" class="btn btn-primary me-2"
+                                               onclick="sample6_execDaumPostcode()" value="우편번호 찾기">
                                     </div>
                                 </div>
 
@@ -145,10 +151,10 @@
                                 </div>
 
                                 <div class="mb-3 col-md-6">
-                                    <label class="form-label">Address 1</label>
+                                    <label class="form-label">주소</label>
 
                                     <input type="text"
-                                           id="address1WithValue"
+                                           id="sample6_address"
                                            name="address1"
                                            class="form-control"
                                            th:if="${memberInfo != null and memberInfo.address1 != null}"
@@ -157,15 +163,15 @@
                                     <input th:if="${memberInfo == null || memberInfo.address1 == null}"
                                            id="address1Placeholder"
                                            name="address1"
-                                           placeholder="서울 특별시 광진구 OOO로 OO길"
+                                           placeholder="서울 특별시 OO구 OOO로 OO길"
                                            class="form-control"/>
                                 </div>
 
                                 <div class="mb-3 col-md-6">
-                                    <label class="form-label">Address 2</label>
+                                    <label class="form-label">상세 주소</label>
 
                                     <input type="text"
-                                           id="address2WithValue"
+                                           id="sample6_detailAddress"
                                            name="address2"
                                            class="form-control"
                                            th:if="${memberInfo != null and memberInfo.address2 != null}"
@@ -196,13 +202,21 @@
                                 </div>
 
                                 <div class="mb-3 col-md-6">
-                                    <label class="form-label" for="country">계정상태</label>
-                                    <select id="country" class="select2 form-select">
-                                        <option value="">Select</option>
-                                        <option value="ACTIVE">Active</option>
-                                        <option value="DEACTIVE">Deactive</option>
-                                        <option value="DORMANT">Dormant</option>
-                                        <option value="WITHDRAWAL">withdrawal</option>
+                                    <label class="form-label" for="memberStatus">계정상태</label>
+                                    <select id="memberStatus" class="select2 form-select"
+                                            th:field="${member.memberStatus}">
+                                        <option th:value="ACTIVE" th:selected="${member.memberStatus == 'ACTIVE'}">
+                                            Active
+                                        </option>
+                                        <option th:value="DEACTIVE" th:selected="${member.memberStatus == 'DEACTIVE'}">
+                                            Deactive
+                                        </option>
+                                        <option th:value="DORMANT" th:selected="${member.memberStatus == 'DORMANT'}">
+                                            Dormant
+                                        </option>
+                                        <option th:value="WITHDRAWAL"
+                                                th:selected="${member.memberStatus == 'WITHDRAWAL'}">Withdrawal
+                                        </option>
                                     </select>
                                 </div>
 
@@ -212,15 +226,19 @@
                                 <button type="submit" class="btn btn-primary me-2">수정</button>
                                 <button type="reset" class="btn btn-outline-secondary">취소</button>
                             </div>
-                        </form>
-                    </div>
+                        </div>
+                    </form>
                     <!-- /Account -->
                 </div>
             </div>
-
         </div>
     </div>
+
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <script th:src="@{/js/postcode.js}"></script> <!--다음 주소찾기 API-->
+    <script th:src="@{/js/imageAjax.js}"></script> <!-- Ajax -->
 </div>
+
 <!-- / Content -->
 
 </html>

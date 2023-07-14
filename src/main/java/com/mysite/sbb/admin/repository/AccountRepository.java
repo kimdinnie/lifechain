@@ -7,4 +7,6 @@ import com.mysite.sbb.member.entity.Member;
 
 public interface AccountRepository extends JpaRepository<Member, Long> {
 
+
+
 }

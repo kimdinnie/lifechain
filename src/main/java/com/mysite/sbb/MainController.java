@@ -51,7 +51,7 @@ public class MainController {
             return "/login/register_form";
         }
         try {
-            memberService.create(memberRegisterForm.getMemberId(), memberRegisterForm.getMemberPw1(), memberRegisterForm.getMemberNick());
+            memberService.create(memberRegisterForm);
         }catch (DataIntegrityViolationException e) {
             e.printStackTrace();
             bindingResult.reject("signupFailed", "이미 등록된 회원입니다.");

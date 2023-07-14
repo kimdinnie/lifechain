@@ -1,30 +1,43 @@
 package com.mysite.sbb.member.dto;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.mysite.sbb.common.vo.AttachImageVO;
+import com.mysite.sbb.member.entity.Member;
+import com.mysite.sbb.member.entity.MemberInfo;
+import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.OneToOne;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
 @NoArgsConstructor //생성자 자동추가
 public class MemberInfoDto {
+    private String memberId;
     private String zipcode;
     private String address1;
-    private String address2; //주소 api 연결해서 쓰고
-    private String memberImg; //이미지 주소
+    private String address2; //주소 api
     private String memberIntroduce; //자기소개, 한마디
     private String memberTel;
-    @Builder
-    public MemberInfoDto(String zipcode, String address1, String address2, String memberImg, String memberIntroduce, String memberTel) {
-        this.zipcode = zipcode;
-        this.address1 = address1;
-        this.address2 = address2;
-        this.memberImg = memberImg;
-        this.memberIntroduce = memberIntroduce;
-        this.memberTel = memberTel;
+    private Member member;
+    private List<AttachImageVO> imageList = new ArrayList<>();
+
+    public List<AttachImageVO> getImageList() {
+        return imageList;
+    }
+
+    public void setImageList(List<AttachImageVO> imageList) {
+        this.imageList = imageList;
+    }
+
+
+    public MemberInfo toEntity() {
+        MemberInfo memberInfo = new MemberInfo();
+        memberInfo.setMemberId(this.memberId);
+        memberInfo.setZipcode(this.zipcode);
+        memberInfo.setAddress1(this.address1);
+        memberInfo.setAddress2(this.address2);
+        memberInfo.setMemberIntroduce(this.memberIntroduce);
+        memberInfo.setMemberTel(this.memberTel);
+        return memberInfo;
     }
 }

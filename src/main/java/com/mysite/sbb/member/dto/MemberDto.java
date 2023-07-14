@@ -39,5 +39,4 @@ public class MemberDto {
     private Date convertToDate(LocalDateTime localDateTime) {
         return localDateTime != null ? Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant()) : null;
     }
-
 }

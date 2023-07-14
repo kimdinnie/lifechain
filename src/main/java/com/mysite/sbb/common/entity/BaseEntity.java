@@ -1,4 +1,4 @@
-package com.mysite.sbb.common;
+package com.mysite.sbb.common.entity;
 
 import lombok.Getter;
 import org.springframework.data.annotation.CreatedDate;
@@ -22,6 +22,6 @@ public class BaseEntity {
     private LocalDateTime createdDate;
 
     @LastModifiedDate
-    @Column(updatable = false)
+    @Column(updatable = true)
     private LocalDateTime updatedDate;
 }

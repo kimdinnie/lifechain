@@ -57,7 +57,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .invalidateHttpSession(true)
                 .and()
                 // 403 예외처리 핸들링
-                .exceptionHandling().accessDeniedPage("/error");
+                .exceptionHandling().accessDeniedPage("/error")
+                .and()
+                .csrf()
+                .ignoringAntMatchers("/uploadAjaxAction") // CSRF 보호 제외
+                .ignoringAntMatchers("/deleteFile"); // CSRF 보호 제외
+
+
     }
 
     @Bean

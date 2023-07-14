@@ -6,26 +6,28 @@
 <!-- Content -->
 <div layout:fragment="content">
     <div class="container-xxl flex-grow-1 container-p-y">
+
+        <ul class="nav nav-pills flex-column flex-md-row mb-3">
+            <li class="nav-item">
+                <a class="nav-link active" href="javascript:void(0);"><i class="bx bx-user me-1"></i> 회원정보</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="pages-account-settings-notifications.html"
+                ><i class="bx bx-bell me-1"></i> <span th:text="${member.memberNick}">회원 닉네임</span>님의 쓴 글</a
+                >
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="pages-account-settings-connections.html"
+                ><i class="bx bx-link-alt me-1"></i> <span th:text="${member.memberNick}">회원 닉네임</span>님의 즐겨찾기</a
+                >
+            </li>
+        </ul>
+
+
         <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Account/</span> 회원정보</h4>
 
         <div class="row">
             <div class="col-md-12">
-                <ul class="nav nav-pills flex-column flex-md-row mb-3">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="javascript:void(0);"><i class="bx bx-user me-1"></i>
-                            Account</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="pages-account-settings-notifications.html"
-                        ><i class="bx bx-bell me-1"></i> Notifications</a
-                        >
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="pages-account-settings-connections.html"
-                        ><i class="bx bx-link-alt me-1"></i> Connections</a
-                        >
-                    </li>
-                </ul>
                 <div class="card mb-4">
                     <h5 class="card-header">회원정보 상세</h5>
                     <h5 class="card-header">안녕하세요 <span th:text="${member.memberNick}">회원 닉네임</span>님</h5>
@@ -33,20 +35,31 @@
 
                     <div class="card-body">
                         <div class="d-flex align-items-start align-items-sm-center gap-4">
-                            <img
-                                    th:src="@{/assets/img/avatars/1.png}"
-                                    alt="user-avatar"
-                                    class="d-block rounded"
-                                    height="100"
-                                    width="100"
-                                    id="uploadedAvatar"
-                            />
+                            <div id="noMemberImage" th:if="${memberImg == null}">
+                                <img
+                                        th:src="@{/assets/img/logo/logo.png}"
+                                        alt="user-avatar"
+                                        class="d-block rounded"
+                                        height="100"
+                                        width="100"
+                                />
+                            </div>
 
+                            <div id="memberImage" th:if="${memberImg!= null}">
+                                <img
+                                        th:src="@{/display(fileName=${memberImg.uploadPath + '/' + memberImg.uuid + '_' + memberImg.fileName})}"
+                                        alt="user-avatar"
+                                        class="d-block rounded"
+                                        height="100"
+                                        width="100"
+                                />
+                            </div>
                             <div class="button-wrapper">
                                 <span th:if="${memberInfo != null and memberInfo.memberIntroduce != null}"
-                                      th:text="${memberInfo.name}">회원 자기소개 / 한마디</span>
+                                      th:text="${memberInfo.memberIntroduce}">회원 자기소개 / 한마디</span>
                                 <span th:if="${memberInfo == null || memberInfo.memberIntroduce == null}">입력된 자기소개가 없습니다.</span>
                             </div>
+
                         </div>
                     </div>
 
@@ -85,7 +98,7 @@
                             <div class="mb-3 col-md-6">
                                 <label class="form-label">Zip Code</label>
                                 <span th:if="${memberInfo != null and memberInfo.zipcode != null}"
-                                      th:text="${memberInfo.memberTel}" maxlength="6"
+                                      th:text="${memberInfo.zipcode}" maxlength="6"
                                       class="form-control">우편번호</span>
                                 <span th:if="${memberInfo == null || memberInfo.zipcode == null}" maxlength="6"
                                       class="form-control">입력된 우편번호가 없습니다.</span>
@@ -111,13 +124,15 @@
 
                             <div class="mb-3 col-md-6">
                                 <label class="form-label" for="createdDate">가입일</label>
-                                <span id="createdDate" class="form-control" th:text="${member.createdDate}">
+                                <span id="createdDate" class="form-control"
+                                      th:text="${#temporals.format(member.createdDate, 'yyyy-MM-dd HH:mm:ss')}">
                                 </span>
                             </div>
 
                             <div class="mb-3 col-md-6">
                                 <label class="form-label" for="updatedDate">마지막 접속일</label>
-                                <span id="updatedDate" class="form-control" th:text="${member.updatedDate}">
+                                <span id="updatedDate" class="form-control"
+                                      th:text="${#temporals.format(member.updatedDate, 'yyyy-MM-dd HH:mm:ss')}">
                                 </span>
                             </div>
 
@@ -185,6 +200,15 @@
                 deactivateButton.disabled = true;
             }
         });
+    });
+
+
+
+
+
+
+
+
     </script>
 
     <!-- / Content -->

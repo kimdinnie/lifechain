@@ -3,14 +3,11 @@ package com.mysite.sbb.member.entity;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mysite.sbb.common.BaseEntity;
+import com.mysite.sbb.common.entity.BaseEntity;
 
 import javax.persistence.*;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
@@ -23,11 +20,11 @@ public class Member extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id; // Member 엔티티 PK와 관련된 MemberInfo PK값 (동일한 값을 사용)
 
+    @OneToOne(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
+    private MemberInfo memberInfo;
+
     @Column(unique = true)
     private String memberId;
-
-    @OneToOne(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private MemberInfo memberInfo;
 
     @Column(unique = true)
     private String memberNick;

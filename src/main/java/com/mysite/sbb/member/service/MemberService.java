@@ -1,7 +1,9 @@
 package com.mysite.sbb.member.service;
 
+import com.mysite.sbb.member.dto.MemberDto;
 import com.mysite.sbb.member.entity.MemberInfo;
 import com.mysite.sbb.member.entity.MemberStatus;
+import com.mysite.sbb.member.form.MemberRegisterForm;
 import com.mysite.sbb.member.mail.EmailException;
 import com.mysite.sbb.member.repository.MemberInfoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,28 +26,33 @@ import lombok.RequiredArgsConstructor;
 @Service
 public class MemberService {
 
-    @Autowired
-    MemberInfoRepository memberInfoRepository;
-
+    private final MemberInfoRepository memberInfoRepository;
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
     private final TempPasswordMail tempPasswordMail;
     private final CommonUtil commonUtil;
 
-
-    public Member create(String memberId, String memberPw, String memberNick) {
+    public Member create(MemberRegisterForm memberRegisterForm) {
         Member member = Member.builder()
-                .memberId(memberId)
-                .memberPw(passwordEncoder.encode(memberPw))
-                .memberNick(memberNick)
+                .memberId(memberRegisterForm.getMemberId())
+                .memberPw(passwordEncoder.encode(memberRegisterForm.getMemberPw1()))
+                .memberNick(memberRegisterForm.getMemberNick())
                 .memberStatus(MemberStatus.ACTIVE)
                 .build();
+
+        // Member 저장
         this.memberRepository.save(member);
 
-        member.setMemberStatus(MemberStatus.ACTIVE);
+        MemberInfo memberInfo = new MemberInfo();
+        memberInfo.setMember(member); // 연관 관계 설정
+        memberInfo.setMemberId(member.getMemberId());
 
-        MemberInfo memberInfo = new MemberInfo(); //회원가입할 때 memberInfo 테이블에 null값으로 저장
-        memberInfo.setId(member.getId()); // 모든 멤버 변수가 null값인 객체 생성 후 PK 값 설정
+        // Member 저장 후 ID 값 가져오기
+        this.memberRepository.save(member);
+        Long memberId = member.getId();
+
+        // 가져온 ID 값을 사용하여 MemberInfo 저장
+        memberInfo.setId(memberId);
         this.memberInfoRepository.save(memberInfo);
 
         return member;
