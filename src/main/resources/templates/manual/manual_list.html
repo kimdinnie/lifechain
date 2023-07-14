@@ -1,37 +1,148 @@
 <html layout:decorate="~{layout}">
 	<div layout:fragment="content" class="container">
+		
 
-<link rel="stylesheet" th:href="@{/assets/css/custom_width.css}"/>
 <link rel="stylesheet" th:href="@{/assets/css/heart_icon.css}"/>
-              
-	  <div class = "container-xxl custom-container">
-		<div class="row my-3">
-		  <h5 class="my-4">👍 응급</h5>
-		    <div class="col-lg-12 col-md-12 order-1">
-		      <div class="row">
-				  
-		        <div class="col-lg-4 col-md-6 col-12 mb-4" th:each="manual, loop : ${manualList}">
-		          <div class="card">
-		            <div class="card-body">
-		              <div class="card-title d-flex align-items-start justify-content-between">
-		                <div class="avatar flex-shrink-0">
-		              <span class="badge bg-label-success me-1" th:text="${manual.type}"></span>
-		                </div>
-		                <div class="love-icon">
-						  <input type="checkbox" id="like-toggle" />
-						  <label for="like-toggle" class="heart"> </label>
-						</div>
-		              </div>
-		              <img src="${manual.manualPic}" alt="CPR Image">
-		              <h3 class="card-title mb-2" th:text="${manual.subject}"></h3>
-		              <small class="text-success fw-semibold" th:text="${manual.summary}"></small>
-		            </div>
-		          </div>
-		        </div>
-		      </div>
-		    </div>
-	     </div>
-	   </div>
-	</div>
-	
-	
+
+<style>
+  /* 모달 배경을 불투명하게 설정합니다. */
+  .modal-backdrop {
+    background-color: rgba(0, 0, 0, 0); /* 배경색과 투명도 조절 */
+  }
+  .modal-transparent .modal-content {
+    background-color: rgba(255, 255, 255, 0.9); /* 배경색과 투명도 조절 */
+  }
+  
+    /* 모달의 크기를 조정합니다. */
+  .modal-content {
+    max-width: 250px; /* 최대 너비 설정 */
+    width: auto; /* 너비 자동 설정 */
+    max-height: 70px;
+    height: auto;
+  }
+
+</style>
+<div class="container-xxl custom-container">
+  <div class="row my-3">
+	  
+          <nav
+            class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
+            id="layout-navbar"
+          >
+            <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
+              <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
+                <i class="bx bx-menu bx-sm"></i>
+              </a>
+            </div>
+
+            <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
+              <!-- Search -->
+              <a th:href="@{/manual/search}">
+              <div class="navbar-nav align-items-center" id = "area">
+                <div class="nav-item d-flex align-items-center">
+				
+                  <i class="bx bx-search fs-4 lh-0"></i>
+                  
+					<input type="text" class="form-control border-0 shadow-none" placeholder="메뉴얼을 검색하세요." aria-label="Search..." id="search-input" />
+                </div>
+              </div>
+              </a>
+              <!-- /Search -->
+            </div>
+          </nav>
+
+          <!-- / Navbar -->
+          
+
+	  
+<h5 class="my-4">👍 응급</h5>
+    <div class="col-lg-12 col-md-12 order-1">
+      <div class="row">
+		  
+        <div class="col-lg-4 col-md-6 col-12 mb-4" th:each="manual, loop : ${manualList}">
+          <div class="card">
+            <div class="card-body">
+              <div class="card-title d-flex align-items-start justify-content-between">
+                <div class="avatar flex-shrink-0">
+                  <span class="badge bg-label-success me-1" th:text="${manual.manualType}"></span>
+                </div>
+                <div class="love-icon">
+					<input type="checkbox" th:id="'like-toggle-'+ ${manual.id}" th:onchange="'toggleBookmark('+ ${manual.id} +');'" />
+					<label th:for="'like-toggle-'+${manual.id}" class="heart"></label>
+                </div>
+              </div>
+              <img th:src="${manual.manualPic}" alt="CPR Image" style="width: 50%; margin-bottom: 30px; display: block; margin-left: auto; margin-right: auto;">
+              <h3 class="card-title mb-2"><a th:href="@{|/manual/detail/${manual.id}|}" th:text="${manual.subject}"></a></h3>
+              <small class="text-success fw-semibold" th:text="${manual.summary}"></small>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 모달창 -->
+<div class="modal fade" id="bookmark-modal" tabindex="-1" aria-labelledby="bookmark-modal-label" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-bottom">
+    <div class="modal-content">
+      <div class="modal-body">
+        <p id="bookmark-message"></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+        
+        
+        
+      </div>
+    </div>
+  </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+function toggleBookmark(id) {
+    const isChecked = document.getElementById(`like-toggle-${id}`).checked;
+
+    console.log(isChecked);
+    const url = `/bookmark/${id}`;
+    if (isChecked) {
+      fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ id }),
+      })
+        .then(response => {
+          // 응답을 처리하는 코드 작성
+        if (!response.ok) {
+        throw new Error(`${response.status} ${response.statusText}`);
+	      }
+	      return response.json(); // JSON 형태로 변환하여 반환
+	    })
+	    .then(result => {
+	      console.log(result); // 가공된 응답 데이터 출력
+	    })
+        .catch(error => {
+          console.error(error);
+        });
+    } else {
+      // 북마크 삭제 요청 코드 작성
+      fetch(`${url}/${id}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+        .then(response => {
+          // 응답을 처리하는 코드 작성
+        })
+        .catch(error => {
+          console.error(error);
+        });
+    }
+}
+</script>
+
+
+
+</div>

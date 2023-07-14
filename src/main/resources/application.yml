@@ -3,6 +3,7 @@ server:
   shutdown: graceful
 
 spring:
+
   lifecycle:
     timeout-per-shutdown-phase: 20s
 
@@ -36,3 +37,8 @@ spring:
     port: 587
     username: neeoao719@gmail.com
     password: lvzxcprchkewruow
+    
+  elasticsearch:
+    rest:
+      cluster-name: my-application
+      cluster-nodes: localhost:9200

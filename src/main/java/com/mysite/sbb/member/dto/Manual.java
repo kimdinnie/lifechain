@@ -8,6 +8,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -21,7 +23,7 @@ public class Manual {
 	private Integer id;
 	
 	@Column(length = 200)
-	private String type;
+	private String manualType;
 	
 	@Column(length = 200)
 	private String subject;
@@ -29,14 +31,11 @@ public class Manual {
 	@Column(length = 200)
 	private String summary;
 	
-	@Column(columnDefinition = "TEXT")
-	private String content;
-	
+	@CreationTimestamp
 	private LocalDateTime createDate;
 	
 	@Column(length = 200)
 	private String manualPic;
-
 
 
 }

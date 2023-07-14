@@ -33,7 +33,11 @@ dependencies {
     implementation 'mysql:mysql-connector-java:8.0.27'
     implementation 'org.springframework.boot:spring-boot-starter-mail'
     implementation 'org.modelmapper:modelmapper:2.1.1'
-    
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.14.3'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-elasticsearch', version: '2.7.12'
+    implementation 'org.slf4j:slf4j-api:1.7.32'
+	implementation 'ch.qos.logback:logback-classic:1.2.6'
+
 }
 
 tasks.named('test') {
