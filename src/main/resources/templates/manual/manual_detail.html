@@ -1,52 +1,57 @@
 <html layout:decorate="~{layout}">
-	<div layout:fragment="content" class="container">
-		
+<div layout:fragment="content" class="container">
+
     <audio id="myAudio" src="${manual.manualAudio}" autoplay></audio>
-		<br>
-      <div class="card mb-4 manual-container">
-      <button type="button" class="btn rounded-pill btn-icon btn-primary" id="playBtn">
-        <!-- Boxicons 아이콘 사용 (재생) -->
-        <i class='bx bx-play'></i>
-      </button>
-      <button type="button" class="btn rounded-pill btn-icon btn-outline-secondary" id="stopBtn" style="display: none;">
-        <!-- Boxicons 아이콘 사용 (중지) -->
-        <i class='bx bx-stop' ></i>
-      </button>
+    <br>
+    <div class="card mb-4 manual-container">
+        <button type="button" class="btn rounded-pill btn-icon btn-primary" id="playBtn">
+            <!-- Boxicons 아이콘 사용 (재생) -->
+            <i class='bx bx-play'></i>
+        </button>
+        <button type="button" class="btn rounded-pill btn-icon btn-outline-secondary" id="stopBtn"
+                style="display: none;">
+            <!-- Boxicons 아이콘 사용 (중지) -->
+            <i class='bx bx-stop'></i>
+        </button>
         <h5 class="card-header" th:text="${manual.manualType}"></h5>
-      	
+
         <div class="card-body">
-          <div class="text-light small fw-semibold" th:text="${manual.subject}"></div>
-          <div class="demo-vertical-spacing">
-            <div class="progress">
-              <div class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" id="updateProgressBar"> </div>
+            <div class="text-light small fw-semibold" th:text="${manual.subject}"></div>
+            <div class="demo-vertical-spacing">
+                <div class="progress">
+                    <div class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="25" aria-valuemin="0"
+                         aria-valuemax="100" id="updateProgressBar"></div>
+                </div>
+                <hr class="m-0"/>
+                <div class="center-align">
+                    <!--<img src ="https://i0.wp.com/post.healthline.com/wp-content/uploads/2020/12/7661-cpr-chest-compressions-animation.gif?w=1845">-->
+                    <img src="" id="manualPic"
+                         style="width: 30%; margin: 50px 0 50px 0; display: block; margin-left: auto; margin-right: auto;">
+                    <h1 class="mb-0" id="subTopic" style="text-align: center;"></h1>
+                    <br>
+                    <h4 class="mb-0" id="content"></h4>
+                    <br>
+
+                    <div class="col-lg-12 col-md-12 order-1">
+                        <div class="row">
+                            <div class="col-6 text-end">
+                                <button type="button" class="btn btn-xl rounded-pill btn-outline-secondary"
+                                        id="previous_btn">이전
+                                </button>
+                            </div>
+                            <div class="col-6">
+                                <button type="button" class="btn btn-xl rounded-pill btn-primary" id="next_btn">다음
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <hr class="m-0" />
-            <div class="center-align">
-	          <!--<img src ="https://i0.wp.com/post.healthline.com/wp-content/uploads/2020/12/7661-cpr-chest-compressions-animation.gif?w=1845">-->
-				<img src="" id="manualPic" style="width: 30%; margin: 50px 0 50px 0; display: block; margin-left: auto; margin-right: auto;">
-				<h1 class="mb-0" id="subTopic" style="text-align: center;"></h1>
-				<br>
-				<h4 class="mb-0" id="content"></h4>
-				<br>
-
-	          <div class="col-lg-12 col-md-12 order-1">
-      			<div class="row">
-		          <div class="col-6 text-end">
-		          	<button type="button" class="btn btn-xl rounded-pill btn-outline-secondary" id="previous_btn">이전</button>
-		          </div>
-		          <div class="col-6">
-		          	<button type="button" class="btn btn-xl rounded-pill btn-primary" id="next_btn">다음</button>
-		          </div>
-		        </div>
-	          </div>
-        </div>
-      </div>
-      
 
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-	 
-<script>
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+            <script>
   var totalDataLength = 0; // 전체 데이터 개수를 저장하는 변수
   var manualContentData = null;
   var currentContentIndex = -1;
@@ -160,7 +165,8 @@
     var audio = new Audio(audioPath);
     audio.play();
   }
-</script>
 
-	 
-	</div>
+            </script>
+
+
+        </div>

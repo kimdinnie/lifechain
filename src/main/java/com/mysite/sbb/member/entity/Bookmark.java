@@ -1,4 +1,4 @@
-package com.mysite.sbb.member.dto;
+package com.mysite.sbb.member.entity;
 
 import java.time.LocalDateTime;
 

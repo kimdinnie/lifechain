@@ -1,12 +1,15 @@
 package com.mysite.sbb.member.entity;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.mysite.sbb.common.entity.BaseEntity;
 
 import javax.persistence.*;
 
+import com.mysite.sbb.config.MemberStatus;
 import lombok.*;
 
 @Getter
@@ -31,6 +34,8 @@ public class Member extends BaseEntity {
 
     private String memberPw;
 
+    private LocalDateTime lastLoginTime; //최종로그인
+
     @Enumerated(EnumType.STRING)
     @Column(name = "member_status")
     private MemberStatus memberStatus;
@@ -51,4 +56,5 @@ public class Member extends BaseEntity {
         this.memberPw = memberPw;
         this.memberStatus = memberStatus;
     }
+
 }

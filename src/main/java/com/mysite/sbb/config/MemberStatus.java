@@ -1,4 +1,4 @@
-package com.mysite.sbb.member.entity;
+package com.mysite.sbb.config;
 
 import lombok.Getter;
 import org.springframework.stereotype.Component;
