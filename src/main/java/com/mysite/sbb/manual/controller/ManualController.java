@@ -1,4 +1,4 @@
-package com.mysite.sbb.member.controller;
+package com.mysite.sbb.manual.controller;
 
 import java.util.List;
 
@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import com.mysite.sbb.member.entity.Manual;
-import com.mysite.sbb.member.dto.ManualContent;
-import com.mysite.sbb.member.service.ManualContentService;
-import com.mysite.sbb.member.service.ManualService;
+import com.mysite.sbb.manual.entity.Manual;
+import com.mysite.sbb.manual.entity.ManualContent;
+import com.mysite.sbb.manual.service.ManualContentService;
+import com.mysite.sbb.manual.service.ManualService;
 
 import lombok.RequiredArgsConstructor;
 

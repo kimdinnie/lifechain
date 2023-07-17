@@ -1,4 +1,4 @@
-package com.mysite.sbb.member.dto;
+package com.mysite.sbb.manual.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,11 +9,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
-import com.mysite.sbb.member.entity.Manual;
 import lombok.Getter;
 import lombok.Setter;
 

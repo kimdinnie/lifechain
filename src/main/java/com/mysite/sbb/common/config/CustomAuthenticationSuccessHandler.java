@@ -1,4 +1,4 @@
-package com.mysite.sbb.config;
+package com.mysite.sbb.common.config;
 
 import co.elastic.clients.elasticsearch.security.User;
 import com.mysite.sbb.member.entity.Member;

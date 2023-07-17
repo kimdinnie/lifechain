@@ -1,4 +1,4 @@
-package com.mysite.sbb.config;
+package com.mysite.sbb.common.config;
 
 import lombok.Getter;
 

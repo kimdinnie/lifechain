@@ -1,4 +1,4 @@
-package com.mysite.sbb.config;
+package com.mysite.sbb.common.config;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -9,10 +9,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.header.writers.frameoptions.XFrameOptionsHeaderWriter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import com.mysite.sbb.member.service.MemberSecurityService;
@@ -55,7 +53,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .csrf()
                 .ignoringAntMatchers("/uploadAjaxAction") // CSRF 보호 제외
-                .ignoringAntMatchers("/deleteFile"); // CSRF 보호 제외
+                .ignoringAntMatchers("/deleteFile") // CSRF 보호 제외
+                .ignoringAntMatchers("/bookmark/add") // CSRF 보호 제외
+                .ignoringAntMatchers("/bookmark/remove"); // CSRF 보호 제외
+
 
 
     }

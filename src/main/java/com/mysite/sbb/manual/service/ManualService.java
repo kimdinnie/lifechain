@@ -1,14 +1,14 @@
-package com.mysite.sbb.member.service;
+package com.mysite.sbb.manual.service;
 
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import com.mysite.sbb.member.entity.Manual;
+import com.mysite.sbb.manual.entity.Manual;
 import com.mysite.sbb.common.DataNotFoundException;
-import com.mysite.sbb.member.repository.BookmarkRepository;
-import com.mysite.sbb.member.repository.ManualRepository;
+import com.mysite.sbb.bookmark.repository.BookmarkRepository;
+import com.mysite.sbb.manual.repository.ManualRepository;
 
 import lombok.RequiredArgsConstructor;
 

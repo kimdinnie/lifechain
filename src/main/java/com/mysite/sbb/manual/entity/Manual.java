@@ -1,4 +1,4 @@
-package com.mysite.sbb.member.entity;
+package com.mysite.sbb.manual.entity;
 
 import java.time.LocalDateTime;
 
@@ -36,6 +36,5 @@ public class Manual {
 	
 	@Column(length = 200)
 	private String manualPic;
-
 
 }

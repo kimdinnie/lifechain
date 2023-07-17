@@ -1,7 +1,7 @@
 package com.mysite.sbb.member.service;
 
 import com.mysite.sbb.member.entity.MemberInfo;
-import com.mysite.sbb.config.MemberStatus;
+import com.mysite.sbb.common.config.MemberStatus;
 import com.mysite.sbb.member.form.MemberRegisterForm;
 import com.mysite.sbb.member.mail.EmailException;
 import com.mysite.sbb.member.repository.MemberInfoRepository;
