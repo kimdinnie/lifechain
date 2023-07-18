@@ -34,13 +34,20 @@ public class BookmarkController {
     private static final Logger logger = LoggerFactory.getLogger(BookmarkController.class);
 
     @PostMapping("/add/{id}")
-    public ResponseEntity<?> insert(@RequestBody @Valid BookmarkDto bookmarkDto) throws Exception {
+    public ResponseEntity<?> insert(@PathVariable("id") Integer id, @PathVariable("memberId") Long memberId, @RequestBody @Valid BookmarkDto bookmarkDto) throws Exception {
+        bookmarkDto.setMemberId(memberId); // 실제 멤버의 식별자 값을 할당
+        bookmarkDto.setManualId(id); // 실제 매뉴얼의 식별자 값을 할당
+
+        logger.info("bookmarkDto MemberId : " + bookmarkDto.getMemberId());
+        logger.info("bookmarkDto ManualId : " + bookmarkDto.getManualId());
+
         bookmarkService.insert(bookmarkDto);
         return ResponseEntity.status(HttpStatus.OK).build(); // 성공 응답을 반환
     }
 
     @DeleteMapping("/remove/{id}")
-    public ResponseEntity<?> delete(@RequestBody @Valid BookmarkDto bookmarkDto) throws Exception {
+    public ResponseEntity<?> delete(@PathVariable("id") Integer id, @RequestBody @Valid BookmarkDto bookmarkDto) throws Exception {
+        bookmarkDto.setManualId(id);
         bookmarkService.delete(bookmarkDto);
         return ResponseEntity.status(HttpStatus.OK).build(); // 성공 응답을 반환
     }

@@ -56,5 +56,4 @@ public class Member extends BaseEntity {
         this.memberPw = memberPw;
         this.memberStatus = memberStatus;
     }
-
 }

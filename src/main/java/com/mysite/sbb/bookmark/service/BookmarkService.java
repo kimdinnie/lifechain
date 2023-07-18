@@ -31,11 +31,17 @@ public class BookmarkService {
     private static final Logger logger = LoggerFactory.getLogger(BookmarkService.class);
 
     public void insert(BookmarkDto bookmarkDto) throws Exception {
+        logger.info("insert 실행 --------------------");
+
         Member member = memberRepository.findById(bookmarkDto.getMemberId())
                 .orElseThrow(() -> new NotFoundException("Could not find member with id: " + bookmarkDto.getMemberId()));
 
+        logger.info("bookmarkDto.getMemberId() 확인 : " + bookmarkDto.getMemberId());
+
         Manual manual = manualRepository.findById(bookmarkDto.getManualId())
                 .orElseThrow(() -> new NotFoundException("Could not find manual with id: " + bookmarkDto.getManualId()));
+
+        logger.info("bookmarkDto.getManualId() 확인 : " + bookmarkDto.getManualId());
 
         if (bookmarkRepository.findByMemberAndManual(member, manual).isPresent()) {
             throw new Exception("Bookmark already exists for member: " + bookmarkDto.getMemberId() + " and manual: " + bookmarkDto.getManualId());
@@ -46,63 +52,27 @@ public class BookmarkService {
                 .member(member)
                 .build();
 
+        logger.info("Bookmark.builder() 확인 : " + bookmark);
         bookmarkRepository.save(bookmark);
     }
 
     @Transactional
     public void delete(BookmarkDto bookmarkDto) throws Exception {
+        logger.info("delete 실행 --------------------");
         Member member = memberRepository.findById(bookmarkDto.getMemberId())
                 .orElseThrow(() -> new NotFoundException("Could not find member with id: " + bookmarkDto.getMemberId()));
+
+        logger.info("bookmarkDto.getMemberId() 확인 : " + bookmarkDto.getMemberId());
 
         Manual manual = manualRepository.findById(bookmarkDto.getManualId())
                 .orElseThrow(() -> new NotFoundException("Could not find manual with id: " + bookmarkDto.getManualId()));
 
+        logger.info("bookmarkDto.getManualId() 확인 : " + bookmarkDto.getManualId());
+
         Bookmark bookmark = bookmarkRepository.findByMemberAndManual(member, manual)
                 .orElseThrow(() -> new NotFoundException("Bookmark not found"));
 
+        logger.info("bookmark 확인 : " + bookmark);
         bookmarkRepository.delete(bookmark);
     }
 }
-
-
-
-/*
-
-    public void insert(BookmarkDto bookmarkDto) throws Exception {
-        Member member = memberRepository.findById(bookmarkDto.getMemberId())
-                .orElseThrow(() -> new NotFoundException("Could not found member id : " + bookmarkDto.getMemberId()));
-
-        Manual manual = manualRepository.findById(bookmarkDto.getManualId())
-                .orElseThrow(() -> new NotFoundException("Could not found manual id : " + bookmarkDto.getManualId()));
-
-        */
-/*이미 북마크에 넣었다면 에러 반환*//*
-
-        if (bookmarkRepository.findByMemberAndManual(member, manual).isPresent()) {
-            throw new Exception();
-        }
-
-        Bookmark bookmark = Bookmark.builder()
-                .manual(manual)
-                .member(member)
-                .build();
-
-        bookmarkRepository.save(bookmark);
-    }
-
-*/
-
- /*   @Transactional
-    public void delete(BookmarkDto bookmarkDto) throws Exception {
-        Member member = memberRepository.findById(bookmarkDto.getMemberId())
-                .orElseThrow(() -> new NotFoundException("Could not found member id : " + bookmarkDto.getMemberId()));
-
-        Manual manual = manualRepository.findById(bookmarkDto.getManualId())
-                .orElseThrow(() -> new NotFoundException("Could not found manual id : " + bookmarkDto.getMemberId()));
-
-        Bookmark bookmark = (Bookmark) bookmarkRepository.findByMemberAndManual(member, manual)
-                .orElseThrow(() -> new NotFoundException("Could not found bookmark id"));
-
-        bookmarkRepository.delete(bookmark);
-    }
-}*/

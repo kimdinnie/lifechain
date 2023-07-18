@@ -87,4 +87,8 @@ public class MemberService {
         tempPasswordMail.sendSimpleMessage(memberId, tempPassword);
     }
 
+    public Member findByMemberNick(String memberNick) {
+        // 사용자 닉네임으로 Member 조회하는 로직
+        return memberRepository.findByMemberNick(memberNick);
+    }
 }

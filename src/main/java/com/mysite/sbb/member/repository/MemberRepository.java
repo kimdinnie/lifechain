@@ -15,4 +15,5 @@ public interface MemberRepository extends JpaRepository<Member, Long>{
 
 	List<Member> findByMemberStatus(MemberStatus memberStatus);
 
+    Member findByMemberNick(String memberNick);
 }

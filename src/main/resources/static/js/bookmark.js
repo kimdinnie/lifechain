@@ -1,3 +1,4 @@
+/*<![CDATA[*/
 // CSRF 토큰 가져오기
 function getCsrfToken() {
   return $("meta[name='_csrf']").attr("content");
@@ -20,8 +21,6 @@ $.ajaxSetup({
 
 // 세션에서 회원 ID를 가져오는 함수
 function getMemberIdFromSession() {
-  // 세션 관리 로직을 구현해야 합니다.
-  // 예시로 현재 세션에 저장된 회원 ID를 가져오는 코드를 작성합니다.
   const memberId = sessionStorage.getItem('memberId'); // 세션에서 회원 ID를 가져오는 코드
   return memberId;
 }
@@ -59,7 +58,7 @@ function toggleBookmark(id) {
     }
   });
 }
-
+/*]]>*/
 
 
 /*function toggleBookmark(id) {
